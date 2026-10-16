@@ -1,12 +1,13 @@
 # Maze Game
+
 For in-game features and guide, visit **[FEATURES.md](FEATURES.md)**
 
-For code explanation, visit **[CODE.md](CODE.md)**
+For code overview, visit **[CODE.md](CODE.md)**
 
 For explanation of purposes of files, visit **[FILES.md](FILES.md)**
 
-For the progress of this project, visit **[PROGRESS.md](PROGRESS.md)**
+For the technical guide of this project, visit **[TECHNICAL.md](TECHNICAL.md)**
 
 ---
 
-GitHub repository: []()
+GitHub repository: **[random-maze-web](https://github.com/Taiyuuu/random-maze-web)**
