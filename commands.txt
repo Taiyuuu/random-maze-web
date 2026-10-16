@@ -1,0 +1,16 @@
+Commands:
+
+noclip <boolean>: noclip 1
+load <menu_idx>: load [0: "MENU", 1: "OPTIONS", 2: "GAME", 3: "game_over", 4: "game_won"]
+reload
+inv <boolean>: inv [0: "vulnerable", 1: "invincible"]
+timer <command>/<amount>: timer ["reset", "pause", "resume"]/[5: "add 5 seconds", -2: "remove 2 seconds"]
+kill <@target>: kill ["@s": "self", "@n": "nearest enemy", "@a": "all enemy"]
+hp <amount>: hp [2: "add two hp", -3: "remove three hp"]
+ai <target> <boolean>: ai ["@s": "self", "@n": "nearest enemy", "@a": "all enemy"] 0
+inf_heal <(optional)boolean>: inf_heal 1
+theme <theme_idx>: theme [0: "default", 1: "spring", 2: "summer", 3: "autumn", 4: "winter"]
+setzoom <cell_size>: setzoom 160
+hud <(optional)boolean> / panel <(optional)boolean>
+minimap <(optional)boolean> / map <(optional)boolean>
+collisionbox <(optional)boolean>: collisionbox 1

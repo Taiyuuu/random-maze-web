@@ -1,0 +1,1453 @@
+-------------------------------------
+Translated Report (Full Report Below)
+-------------------------------------
+Process:             python3.13 [4939]
+Path:                /Users/USER/*/python
+Identifier:          python3.13
+Version:             ???
+Code Type:           ARM-64 (Native)
+Role:                Foreground
+Parent Process:      zsh [1792]
+Coalition:           com.microsoft.VSCode [1191]
+Responsible Process: Code [1040]
+User ID:             502
+
+Date/Time:           2026-10-15 20:29:13.4844 -0400
+Launch Time:         2026-10-15 20:29:10.4640 -0400
+Hardware Model:      Mac16,10
+OS Version:          macOS 26.6.2 (25G83)
+Release Type:        User
+
+Crash Reporter Key:  EDD1577E-8087-3120-13CD-E79F48A10269
+Incident Identifier: EE17985C-D3B2-4C27-A8DB-9B2025350BD5
+
+Time Awake Since Boot: 4600 seconds
+
+System Integrity Protection: enabled
+
+Triggered by Thread: 0, Dispatch Queue: com.apple.main-thread
+
+Exception Type:    EXC_BAD_ACCESS (SIGSEGV)
+Exception Subtype: KERN_INVALID_ADDRESS at 0x000000f00004b469
+Exception Codes:   0x0000000000000001, 0x000000f00004b469
+
+Termination Reason:  Namespace SIGNAL, Code 11, Segmentation fault: 11
+Terminating Process: exc handler [4939]
+
+
+VM Region Info: 0xf00004b469 is not in any region.  
+      REGION TYPE                    START - END         [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL
+      UNUSED SPACE AT START
+--->  
+      UNUSED SPACE AT END
+
+Thread 0 Crashed::  Dispatch queue: com.apple.main-thread
+0   python3.13                    	       0x10258b1d0 _PyDict_SetItem_Take2 + 416
+1   python3.13                    	       0x1025a0368 PyDict_SetItemString + 160
+2   event.cpython-313-darwin.so   	       0x102f9e080 dict_from_event + 4988
+3   event.cpython-313-darwin.so   	       0x102f9abac pg_event_get + 852
+4   python3.13                    	       0x1025aea64 cfunction_call + 76
+5   python3.13                    	       0x1026db0b0 _PyEval_EvalFrameDefault + 55044
+6   python3.13                    	       0x1026caff8 PyEval_EvalCode + 148
+7   python3.13                    	       0x102795bf0 run_eval_code_obj + 100
+8   python3.13                    	       0x1027954c4 run_mod + 148
+9   python3.13                    	       0x102795248 pyrun_file + 144
+10  python3.13                    	       0x102794b1c _PyRun_SimpleFileObject + 256
+11  python3.13                    	       0x102794364 _PyRun_AnyFileObject + 80
+12  python3.13                    	       0x1027c0e1c pymain_run_file_obj + 180
+13  python3.13                    	       0x1027c0440 pymain_run_file + 76
+14  python3.13                    	       0x1027bf744 Py_RunMain + 1036
+15  python3.13                    	       0x1027c1138 pymain_main + 476
+16  python3.13                    	       0x1024ba4e8 main + 60
+17  dyld                          	       0x186de04e4 start + 6992
+
+Thread 1:: SDLTimer
+0   libsystem_kernel.dylib        	       0x18716b50c __psynch_cvwait + 8
+1   libsystem_pthread.dylib       	       0x1871ac128 _pthread_cond_wait + 980
+2   libSDL2-2.0.0.dylib           	       0x10324c978 SDL_CondWaitTimeout_REAL + 148
+3   libSDL2-2.0.0.dylib           	       0x10324c450 SDL_SemWaitTimeout_REAL + 80
+4   libSDL2-2.0.0.dylib           	       0x1031e00d8 SDL_TimerThread + 84
+5   libSDL2-2.0.0.dylib           	       0x1031dfc8c SDL_RunThread + 48
+6   libSDL2-2.0.0.dylib           	       0x10324c038 RunThread + 12
+7   libsystem_pthread.dylib       	       0x1871abc58 _pthread_start + 136
+8   libsystem_pthread.dylib       	       0x1871a6c1c thread_start + 8
+
+Thread 2:
+
+Thread 3:
+
+Thread 4:: com.apple.NSEventThread
+0   libsystem_kernel.dylib        	       0x187167c34 mach_msg2_trap + 8
+1   libsystem_kernel.dylib        	       0x18717a5a4 mach_msg2_internal + 76
+2   libsystem_kernel.dylib        	       0x1871709c0 mach_msg_overwrite + 480
+3   libsystem_kernel.dylib        	       0x187167fc0 mach_msg + 24
+4   CoreFoundation                	       0x187269108 __CFRunLoopServiceMachPort + 160
+5   CoreFoundation                	       0x1872679f4 __CFRunLoopRun + 1188
+6   CoreFoundation                	       0x18733a264 _CFRunLoopRunSpecificWithOptions + 532
+7   AppKit                        	       0x18b7bfcac _NSEventThread + 184
+8   libsystem_pthread.dylib       	       0x1871abc58 _pthread_start + 136
+9   libsystem_pthread.dylib       	       0x1871a6c1c thread_start + 8
+
+Thread 5:
+
+Thread 6:: caulk.messenger.shared:17
+0   libsystem_kernel.dylib        	       0x187167bb0 semaphore_wait_trap + 8
+1   caulk                         	       0x193afbe00 caulk::semaphore::timed_wait(double) + 224
+2   caulk                         	       0x193afbcac caulk::concurrent::details::worker_thread::run() + 32
+3   caulk                         	       0x193afb94c void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*>>>(void*) + 96
+4   libsystem_pthread.dylib       	       0x1871abc58 _pthread_start + 136
+5   libsystem_pthread.dylib       	       0x1871a6c1c thread_start + 8
+
+Thread 7:: caulk.messenger.shared:high
+0   libsystem_kernel.dylib        	       0x187167bb0 semaphore_wait_trap + 8
+1   caulk                         	       0x193afbe00 caulk::semaphore::timed_wait(double) + 224
+2   caulk                         	       0x193afbcac caulk::concurrent::details::worker_thread::run() + 32
+3   caulk                         	       0x193afb94c void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*>>>(void*) + 96
+4   libsystem_pthread.dylib       	       0x1871abc58 _pthread_start + 136
+5   libsystem_pthread.dylib       	       0x1871a6c1c thread_start + 8
+
+Thread 8:: AudioQueue thread
+0   libsystem_kernel.dylib        	       0x187167c34 mach_msg2_trap + 8
+1   libsystem_kernel.dylib        	       0x18717a5a4 mach_msg2_internal + 76
+2   libsystem_kernel.dylib        	       0x1871709c0 mach_msg_overwrite + 480
+3   libsystem_kernel.dylib        	       0x187167fc0 mach_msg + 24
+4   CoreFoundation                	       0x187269108 __CFRunLoopServiceMachPort + 160
+5   CoreFoundation                	       0x1872679f4 __CFRunLoopRun + 1188
+6   CoreFoundation                	       0x18733a264 _CFRunLoopRunSpecificWithOptions + 532
+7   libSDL2-2.0.0.dylib           	       0x103264f50 audioqueue_thread + 1204
+8   libSDL2-2.0.0.dylib           	       0x1031dfc8c SDL_RunThread + 48
+9   libSDL2-2.0.0.dylib           	       0x10324c038 RunThread + 12
+10  libsystem_pthread.dylib       	       0x1871abc58 _pthread_start + 136
+11  libsystem_pthread.dylib       	       0x1871a6c1c thread_start + 8
+
+Thread 9:: caulk::deferred_logger
+0   libsystem_kernel.dylib        	       0x187167bb0 semaphore_wait_trap + 8
+1   caulk                         	       0x193afbe00 caulk::semaphore::timed_wait(double) + 224
+2   caulk                         	       0x193afbcac caulk::concurrent::details::worker_thread::run() + 32
+3   caulk                         	       0x193afb94c void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*>>>(void*) + 96
+4   libsystem_pthread.dylib       	       0x1871abc58 _pthread_start + 136
+5   libsystem_pthread.dylib       	       0x1871a6c1c thread_start + 8
+
+Thread 10:: AQConverterThread
+0   libsystem_kernel.dylib        	       0x18716b50c __psynch_cvwait + 8
+1   libsystem_pthread.dylib       	       0x1871ac128 _pthread_cond_wait + 980
+2   libAudioToolboxUtility.dylib  	       0x1997e3074 CADeprecated::CAGuard::Wait() + 76
+3   AudioToolbox                  	       0x19afcc590 AQConverterManager::AQConverterThread::ConverterThreadEntry(void*) + 412
+4   libAudioToolboxUtility.dylib  	       0x1997cdd58 CADeprecated::CAPThread::Entry(void*) + 96
+5   libsystem_pthread.dylib       	       0x1871abc58 _pthread_start + 136
+6   libsystem_pthread.dylib       	       0x1871a6c1c thread_start + 8
+
+Thread 11:: com.apple.audio.IOThread.client
+0   libsystem_kernel.dylib        	       0x187167bbc semaphore_wait_signal_trap + 8
+1   caulk                         	       0x193b192c8 caulk::mach::semaphore::wait_signal_or_error(caulk::mach::semaphore&) + 36
+2   CoreAudio                     	       0x18a4fd994 HALC_ProxyIOContext::IOWorkLoop() + 4952
+3   CoreAudio                     	       0x18a4fbfa0 invocation function for block in HALC_ProxyIOContext::HALC_ProxyIOContext(unsigned int, unsigned int) + 172
+4   CoreAudio                     	       0x18a6ba000 HALC_IOThread::Entry(void*) + 88
+5   libsystem_pthread.dylib       	       0x1871abc58 _pthread_start + 136
+6   libsystem_pthread.dylib       	       0x1871a6c1c thread_start + 8
+
+Thread 12:: AudioSession - RootQueue
+0   libsystem_kernel.dylib        	       0x187167bc8 semaphore_timedwait_trap + 8
+1   libdispatch.dylib             	       0x187024db8 _dispatch_sema4_timedwait + 64
+2   libdispatch.dylib             	       0x186ff1ae8 _dispatch_semaphore_wait_slow + 76
+3   libdispatch.dylib             	       0x18700177c _dispatch_worker_thread + 324
+4   libsystem_pthread.dylib       	       0x1871abc58 _pthread_start + 136
+5   libsystem_pthread.dylib       	       0x1871a6c1c thread_start + 8
+
+Thread 13:
+
+Thread 14:
+
+Thread 15::  Dispatch queue: NSCGSDisableUpdates
+0   libsystem_kernel.dylib        	       0x187167c34 mach_msg2_trap + 8
+1   libsystem_kernel.dylib        	       0x18717a5a4 mach_msg2_internal + 76
+2   libsystem_kernel.dylib        	       0x1871709c0 mach_msg_overwrite + 480
+3   libsystem_kernel.dylib        	       0x187167fc0 mach_msg + 24
+4   SkyLight                      	       0x18da84880 _SLSTransactionWaitSource(_SLSTransaction*, bool) + 156
+5   AppKit                        	       0x18c5ba714 __NSCGSTransactionRunPostCommitActions__block_invoke + 32
+6   AppKit                        	       0x18c5ba388 ___disable_updates_sync_block_invoke.143 + 44
+7   libdispatch.dylib             	       0x186fefa28 _dispatch_call_block_and_release + 32
+8   libdispatch.dylib             	       0x1870094b0 _dispatch_client_callout + 16
+9   libdispatch.dylib             	       0x186ff8030 _dispatch_lane_serial_drain + 740
+10  libdispatch.dylib             	       0x186ff8b64 _dispatch_lane_invoke + 448
+11  libdispatch.dylib             	       0x187002e34 _dispatch_root_queue_drain_deferred_wlh + 284
+12  libdispatch.dylib             	       0x187002734 _dispatch_workloop_worker_thread + 720
+13  libsystem_pthread.dylib       	       0x1871a7ec0 _pthread_wqthread + 292
+14  libsystem_pthread.dylib       	       0x1871a6c10 start_wqthread + 8
+
+Thread 16:
+
+Thread 17:
+
+Thread 18:
+
+Thread 19:
+
+
+Thread 0 crashed with ARM Thread State (64-bit):
+    x0: 0x00000001057923d8   x1: 0x0000000000000000   x2: 0xffffffffffffffe8   x3: 0x00000001057923e8
+    x4: 0x0000000105792440   x5: 0x0000000000000077   x6: 0x0000000000000077   x7: 0x0000000000000100
+    x8: 0x000000f00004b3c0   x9: 0x0000000000000015  x10: 0x0000000137f04098  x11: 0x0000000104e67e70
+   x12: 0x0000000000000028  x13: 0x00000001029e4220  x14: 0x0000000137f04098  x15: 0x0000000118170009
+   x16: 0x00000001871b5030  x17: 0x0000000137f04080  x18: 0x0000000000000000  x19: 0x00000001029ccdd8
+   x20: 0xdabd023f287f723a  x21: 0x00000001057cb3c0  x22: 0x0000000026800000  x23: 0x00000001057923d0
+   x24: 0x00000000267ff000  x25: 0x00000001057923b0  x26: 0x00000001057cb3b0  x27: 0x0000000105775f70
+   x28: 0x00000001029e4220   fp: 0x000000016d943f00   lr: 0x000000010258b18c
+    sp: 0x000000016d943e60   pc: 0x000000010258b1d0 cpsr: 0x40000000
+   far: 0x000000f00004b469  esr: 0x92000005 (Data Abort) byte read Translation fault
+
+Binary Images:
+       0x1024b8000 -        0x102947fff python3.13 (*) <cf020641-6ed6-32bd-b9a9-9834617293fd> /Users/USER/*/python3.13
+       0x102c70000 -        0x102c77fff base.cpython-313-darwin.so (*) <4375b6b9-e7c9-33c5-809a-f7330bc9855d> /Users/USER/*/base.cpython-313-darwin.so
+       0x10316c000 -        0x1032abfff libSDL2-2.0.0.dylib (*) <7565a66b-4bdf-3376-b81d-b36aadbb746d> /Users/USER/*/libSDL2-2.0.0.dylib
+       0x102ca4000 -        0x102caffff constants.cpython-313-darwin.so (*) <09ec4bde-459a-3fae-9ce5-240fed679bec> /Users/USER/*/constants.cpython-313-darwin.so
+       0x102cc0000 -        0x102cc7fff rect.cpython-313-darwin.so (*) <bb2074dc-ea14-36ae-9f87-d4c45dedcd7c> /Users/USER/*/rect.cpython-313-darwin.so
+       0x102c88000 -        0x102c8bfff rwobject.cpython-313-darwin.so (*) <073ce7cc-2297-3fe7-a47b-4ac1debb770f> /Users/USER/*/rwobject.cpython-313-darwin.so
+       0x102f58000 -        0x102f5bfff surflock.cpython-313-darwin.so (*) <97287733-da2b-36b9-909c-cb42d4ee0a5f> /Users/USER/*/surflock.cpython-313-darwin.so
+       0x102f6c000 -        0x102f73fff color.cpython-313-darwin.so (*) <e4405af0-f93c-3a43-819f-100b28b90ae0> /Users/USER/*/color.cpython-313-darwin.so
+       0x102f84000 -        0x102f87fff bufferproxy.cpython-313-darwin.so (*) <1c6fbdc3-06c1-3ff2-853c-29347eb33c4b> /Users/USER/*/bufferproxy.cpython-313-darwin.so
+       0x102fbc000 -        0x102fcbfff math.cpython-313-darwin.so (*) <1c3af344-d088-3c84-bb49-ecd5ca6f7c67> /Users/USER/*/math.cpython-313-darwin.so
+       0x102fe0000 -        0x102fe7fff display.cpython-313-darwin.so (*) <b8a46c37-472f-3752-bd5c-bccf9c7bc5a3> /Users/USER/*/display.cpython-313-darwin.so
+       0x103044000 -        0x103077fff surface.cpython-313-darwin.so (*) <e74158a7-3fa0-3f9d-bec6-dbb446cca998> /Users/USER/*/surface.cpython-313-darwin.so
+       0x102ffc000 -        0x103007fff draw.cpython-313-darwin.so (*) <e9c71ee8-86d3-3a12-9d2e-8b0784cb0cd9> /Users/USER/*/draw.cpython-313-darwin.so
+       0x102f98000 -        0x102f9ffff event.cpython-313-darwin.so (*) <a4fc62f3-ed9b-312c-bf8f-6181385cf1ae> /Users/USER/*/event.cpython-313-darwin.so
+       0x103018000 -        0x10301ffff image.cpython-313-darwin.so (*) <0842c5ca-b694-3bed-a8f9-b101a54a4c02> /Users/USER/*/image.cpython-313-darwin.so
+       0x103030000 -        0x103033fff imageext.cpython-313-darwin.so (*) <80390a40-621b-31d7-bd5a-101171feb8e3> /Users/USER/*/imageext.cpython-313-darwin.so
+       0x1030c0000 -        0x1030dffff libSDL2_image-2.0.0.dylib (*) <7d7b4fb3-aefa-354d-a777-aa77f90b54a7> /Users/USER/*/libSDL2_image-2.0.0.dylib
+       0x103384000 -        0x1033affff libpng16.16.dylib (*) <05971b3a-7483-3b94-b040-d102813ba50b> /Users/USER/*/libpng16.16.dylib
+       0x1033d0000 -        0x103423fff libjpeg.62.3.0.dylib (*) <59caeede-5673-3b3c-a2fd-fd3077adc4ea> /Users/USER/*/libjpeg.62.3.0.dylib
+       0x1034b4000 -        0x103517fff libtiff.5.8.0.dylib (*) <c4ef960f-1304-37c6-a540-d25213857ccd> /Users/USER/*/libtiff.5.8.0.dylib
+       0x1030f4000 -        0x10310bfff libz.1.2.11.zlib-ng.dylib (*) <079a86cb-5a99-3378-933c-22574044f614> /Users/USER/*/libz.1.2.11.zlib-ng.dylib
+       0x1035b8000 -        0x103613fff libwebp.7.dylib (*) <d1fe1b07-529e-3530-9f27-dfc5569bf982> /Users/USER/*/libwebp.7.dylib
+       0x10308c000 -        0x10308ffff libsharpyuv.0.dylib (*) <07fbf681-5a04-30c1-a106-1c9727a8e6b1> /Users/USER/*/libsharpyuv.0.dylib
+       0x1030a0000 -        0x1030a3fff joystick.cpython-313-darwin.so (*) <709aa48f-1548-35b4-a82d-837a5bfa92f0> /Users/USER/*/joystick.cpython-313-darwin.so
+       0x10311c000 -        0x10311ffff key.cpython-313-darwin.so (*) <c542a124-563c-36cf-9935-268a1ba037a4> /Users/USER/*/key.cpython-313-darwin.so
+       0x103130000 -        0x103133fff mouse.cpython-313-darwin.so (*) <062bcd92-3f18-345c-bf90-57520e428331> /Users/USER/*/mouse.cpython-313-darwin.so
+       0x103144000 -        0x103147fff time.cpython-313-darwin.so (*) <e3395869-95a1-389e-9572-4b2898f8be68> /Users/USER/*/time.cpython-313-darwin.so
+       0x103458000 -        0x103467fff mask.cpython-313-darwin.so (*) <86750ef8-5ab9-32c1-b01f-2e0bbe74f115> /Users/USER/*/mask.cpython-313-darwin.so
+       0x103158000 -        0x10315bfff _heapq.cpython-313-darwin.so (*) <42b477c7-13f6-3780-bfb8-928409ca83fd> /Users/USER/*/_heapq.cpython-313-darwin.so
+       0x103438000 -        0x10343bfff _queue.cpython-313-darwin.so (*) <400cf853-2c71-3389-91f0-e56be8af6df3> /Users/USER/*/_queue.cpython-313-darwin.so
+       0x103478000 -        0x10347ffff pixelcopy.cpython-313-darwin.so (*) <01625bf7-e9f6-39b8-a1ab-5cf975f85b1b> /Users/USER/*/pixelcopy.cpython-313-darwin.so
+       0x103490000 -        0x103497fff pixelarray.cpython-313-darwin.so (*) <20e60628-079d-36ab-a0a8-2a2b5abc9b8c> /Users/USER/*/pixelarray.cpython-313-darwin.so
+       0x103550000 -        0x10355ffff transform.cpython-313-darwin.so (*) <b16be3ab-9478-32e5-b664-107bf58f3a47> /Users/USER/*/transform.cpython-313-darwin.so
+       0x103530000 -        0x103533fff font.cpython-313-darwin.so (*) <22c8c776-eb29-3b3f-aaf7-3a22942552d2> /Users/USER/*/font.cpython-313-darwin.so
+       0x103944000 -        0x103a9ffff libSDL2_ttf-2.0.0.dylib (*) <cb272dad-0458-387e-8246-17b30a9f7ed5> /Users/USER/*/libSDL2_ttf-2.0.0.dylib
+       0x103570000 -        0x103573fff fcntl.cpython-313-darwin.so (*) <dd6e055c-b1e9-35f5-8548-6029b39baebf> /Users/USER/*/fcntl.cpython-313-darwin.so
+       0x103584000 -        0x103587fff _posixsubprocess.cpython-313-darwin.so (*) <8958346c-ff4a-38f0-bfe0-361d85a42830> /Users/USER/*/_posixsubprocess.cpython-313-darwin.so
+       0x103598000 -        0x10359ffff select.cpython-313-darwin.so (*) <1e496282-fd12-3fd7-8bcc-58d5e115a250> /Users/USER/*/select.cpython-313-darwin.so
+       0x10385c000 -        0x103867fff math.cpython-313-darwin.so (*) <4a640229-aa61-3059-ab14-073faccffa4d> /Users/USER/*/math.cpython-313-darwin.so
+       0x103840000 -        0x103843fff mixer_music.cpython-313-darwin.so (*) <d07e82af-4401-316d-b3dc-23a5b5f6d87d> /Users/USER/*/mixer_music.cpython-313-darwin.so
+       0x1038bc000 -        0x1038dffff libSDL2_mixer-2.0.0.dylib (*) <b2188d99-ae4e-3479-9ae3-107dc7385165> /Users/USER/*/libSDL2_mixer-2.0.0.dylib
+       0x103bac000 -        0x103bebfff libmodplug.1.dylib (*) <3cbeecea-0658-390d-809b-9d598bb542e7> /Users/USER/*/libmodplug.1.dylib
+       0x103d30000 -        0x103d87fff libfluidsynth.3.1.1.dylib (*) <78868714-6c04-3400-9e13-7f46bff6f7c4> /Users/USER/*/libfluidsynth.3.1.1.dylib
+       0x103878000 -        0x10387ffff libvorbisfile.3.3.8.dylib (*) <bca7e222-6bb7-3c0a-9ee5-7e9eac0a191b> /Users/USER/*/libvorbisfile.3.3.8.dylib
+       0x103b48000 -        0x103b6ffff libFLAC.8.dylib (*) <b4aac9b1-342a-3b61-acce-fbf255cbb865> /Users/USER/*/libFLAC.8.dylib
+       0x103e00000 -        0x103e3bfff libmpg123.0.dylib (*) <c28141b3-9399-37ab-a8eb-e2d8fbb61e65> /Users/USER/*/libmpg123.0.dylib
+       0x103890000 -        0x103897fff libopusfile.0.dylib (*) <fb4510e1-d6a7-3443-9265-e69e615071b0> /Users/USER/*/libopusfile.0.dylib
+       0x103900000 -        0x103907fff libogg.0.8.5.dylib (*) <91d0da59-85d7-35bf-abec-f1a81632a81e> /Users/USER/*/libogg.0.8.5.dylib
+       0x103ed8000 -        0x103f2ffff libopus.0.dylib (*) <21de877e-6080-37b6-95dc-faa383f46625> /Users/USER/*/libopus.0.dylib
+       0x1038a8000 -        0x1038abfff libgthread-2.0.0.dylib (*) <f6503931-5b91-391a-afda-47a897f95945> /Users/USER/*/libgthread-2.0.0.dylib
+       0x1040ec000 -        0x10424bfff libglib-2.0.0.dylib (*) <90ae6efb-49ea-34e1-aeff-5bab09bfd685> /Users/USER/*/libglib-2.0.0.dylib
+       0x103b88000 -        0x103b93fff libintl.8.dylib (*) <938b6bf8-bd51-3da8-afe2-124278663e68> /Users/USER/*/libintl.8.dylib
+       0x103fd8000 -        0x10403ffff libsndfile.1.0.34.dylib (*) <bd38b251-b980-3cab-b211-d04d4540b65f> /Users/USER/*/libsndfile.1.0.34.dylib
+       0x103e5c000 -        0x103e87fff libvorbis.0.4.9.dylib (*) <f3094c07-bd98-319f-be3d-725a445ca738> /Users/USER/*/libvorbis.0.4.9.dylib
+       0x104338000 -        0x1043affff libvorbisenc.2.0.12.dylib (*) <6e9cfd79-8293-3dbf-b39f-1da0d6b78d3c> /Users/USER/*/libvorbisenc.2.0.12.dylib
+       0x103cbc000 -        0x103cc3fff mixer.cpython-313-darwin.so (*) <94dd0980-1dc9-34f0-8c8e-40543ca31bc5> /Users/USER/*/mixer.cpython-313-darwin.so
+       0x103918000 -        0x10391bfff scrap.cpython-313-darwin.so (*) <d1261965-6ee2-3212-b08d-7cab6f8fd5a6> /Users/USER/*/scrap.cpython-313-darwin.so
+       0x104738000 -        0x1049effff _multiarray_umath.cpython-313-darwin.so (*) <a637eb83-8e07-321b-aef2-90f165609ae4> /Users/USER/*/_multiarray_umath.cpython-313-darwin.so
+       0x103d00000 -        0x103d13fff _datetime.cpython-313-darwin.so (*) <f5dfae17-c619-341b-a1d6-6767bdc45236> /Users/USER/*/_datetime.cpython-313-darwin.so
+       0x10392c000 -        0x10392ffff _contextvars.cpython-313-darwin.so (*) <71533791-ad16-3c08-a773-477d68aa2861> /Users/USER/*/_contextvars.cpython-313-darwin.so
+       0x103cd8000 -        0x103cdffff _struct.cpython-313-darwin.so (*) <e161c1a0-f41f-3541-bb42-f957f0954be4> /Users/USER/*/_struct.cpython-313-darwin.so
+       0x103f54000 -        0x103f6bfff _pickle.cpython-313-darwin.so (*) <41f662de-e8ea-345b-bcbd-6cf2c15342c2> /Users/USER/*/_pickle.cpython-313-darwin.so
+       0x103f80000 -        0x103f97fff _ctypes.cpython-313-darwin.so (*) <6bd32df0-f4d0-3c8e-a551-1ec388685a14> /Users/USER/*/_ctypes.cpython-313-darwin.so
+       0x103eb8000 -        0x103ecbfff libffi.8.dylib (*) <41675ff9-a76f-3c38-9559-da36d2201a80> /Users/USER/*/libffi.8.dylib
+       0x10405c000 -        0x104073fff _umath_linalg.cpython-313-darwin.so (*) <9e986417-03f2-387e-bc2f-1ba6b419f70b> /Users/USER/*/_umath_linalg.cpython-313-darwin.so
+       0x103e98000 -        0x103e9ffff binascii.cpython-313-darwin.so (*) <0860cab5-5c5b-307f-bfdf-1a8854c3fd41> /Users/USER/*/binascii.cpython-313-darwin.so
+       0x104084000 -        0x10409bfff libz.1.3.1.dylib (*) <b5522aa4-7677-3700-bc93-8931bd5d48cc> /Users/USER/*/libz.1.3.1.dylib
+       0x103fac000 -        0x103faffff grp.cpython-313-darwin.so (*) <a9a1f60f-7583-39d3-a297-0261ab644d52> /Users/USER/*/grp.cpython-313-darwin.so
+       0x103fc0000 -        0x103fc7fff zlib.cpython-313-darwin.so (*) <3fb34940-232f-3caf-8874-3db0127c288f> /Users/USER/*/zlib.cpython-313-darwin.so
+       0x1040a8000 -        0x1040abfff _bz2.cpython-313-darwin.so (*) <76a38ded-6f7f-3448-b391-b861c05bc613> /Users/USER/*/_bz2.cpython-313-darwin.so
+       0x104284000 -        0x104297fff libbz2.1.0.8.dylib (*) <0f29847c-5689-38aa-a8fb-d9a99a2ae679> /Users/USER/*/libbz2.1.0.8.dylib
+       0x1040bc000 -        0x1040c3fff _lzma.cpython-313-darwin.so (*) <e58aebee-db57-3ea8-8ac0-db90b8cc4891> /Users/USER/*/_lzma.cpython-313-darwin.so
+       0x1042fc000 -        0x104323fff liblzma.5.6.4.dylib (*) <b7d6bfbd-e6e8-3f00-a381-9300a1b9a1b7> /Users/USER/*/liblzma.5.6.4.dylib
+       0x1040d4000 -        0x1040d7fff _bisect.cpython-313-darwin.so (*) <2201df59-539c-3bfe-8d7d-0e8ae3830b04> /Users/USER/*/_bisect.cpython-313-darwin.so
+       0x1042c4000 -        0x1042c7fff _random.cpython-313-darwin.so (*) <d469b9c2-8d32-3229-99a7-3cd76d807b41> /Users/USER/*/_random.cpython-313-darwin.so
+       0x1042d8000 -        0x1042dbfff _opcode.cpython-313-darwin.so (*) <459274dd-a45b-3025-8998-6c639fb2e8c6> /Users/USER/*/_opcode.cpython-313-darwin.so
+       0x10470c000 -        0x104717fff pyexpat.cpython-313-darwin.so (*) <8205cbdb-d051-31d1-aa6c-a5acbb4c89e4> /Users/USER/*/pyexpat.cpython-313-darwin.so
+       0x104dd0000 -        0x104df3fff libexpat.1.11.1.dylib (*) <3413c0ac-46b8-3ed5-8566-9004eb6d76f5> /Users/USER/*/libexpat.1.11.1.dylib
+       0x1046ec000 -        0x1046f3fff _hashlib.cpython-313-darwin.so (*) <c111bf41-060b-37c2-b603-dd6cf6910508> /Users/USER/*/_hashlib.cpython-313-darwin.so
+       0x105268000 -        0x1054bbfff libcrypto.3.dylib (*) <f0d21d4c-b131-3c61-a70a-9818293ce33b> /Users/USER/*/libcrypto.3.dylib
+       0x104d9c000 -        0x104da3fff _blake2.cpython-313-darwin.so (*) <a24885f6-98aa-37db-88b6-901eb31e1298> /Users/USER/*/_blake2.cpython-313-darwin.so
+       0x104f28000 -        0x104f37fff _socket.cpython-313-darwin.so (*) <9acf54ac-7246-31a2-9816-1969c152e2ec> /Users/USER/*/_socket.cpython-313-darwin.so
+       0x104f04000 -        0x104f0ffff array.cpython-313-darwin.so (*) <7410a056-b055-3b04-9835-f9559d270c55> /Users/USER/*/array.cpython-313-darwin.so
+       0x104f84000 -        0x104f9ffff _ssl.cpython-313-darwin.so (*) <eb5cb2ca-9353-388b-a523-1b769b399f1a> /Users/USER/*/_ssl.cpython-313-darwin.so
+       0x105660000 -        0x1056bffff libssl.3.dylib (*) <f8092719-e028-398f-ae67-1ac5748d3c91> /Users/USER/*/libssl.3.dylib
+       0x104db4000 -        0x104db7fff _scproxy.cpython-313-darwin.so (*) <6940ba33-965a-3f13-9ed8-689d3e1fc189> /Users/USER/*/_scproxy.cpython-313-darwin.so
+       0x105644000 -        0x10564ffff libobjc-trampolines.dylib (*) <690edff1-56be-3018-bec2-9f63287ceb2d> /usr/lib/libobjc-trampolines.dylib
+       0x1164e4000 -        0x1164f3fff _freetype.cpython-313-darwin.so (*) <383dc829-9399-3d7e-b00d-92a001a9abde> /Users/USER/*/_freetype.cpython-313-darwin.so
+       0x1165f0000 -        0x116693fff libfreetype.6.dylib (*) <37e3720d-6b1c-3701-8f72-358ecbbf3ecc> /Users/USER/*/libfreetype.6.dylib
+       0x116508000 -        0x116513fff libbrotlidec.1.0.9.dylib (*) <2c237280-f81e-3504-b019-57e0a3fd17b0> /Users/USER/*/libbrotlidec.1.0.9.dylib
+       0x116554000 -        0x116573fff libbrotlicommon.1.0.9.dylib (*) <7642f259-7812-37ba-af1e-1833e0df72dd> /Users/USER/*/libbrotlicommon.1.0.9.dylib
+       0x117af8000 -        0x117c33fff com.apple.audio.units.Components (1.14) <724b28c1-873e-3674-95de-a03f6714128f> /System/Library/Components/CoreAudio.component/Contents/MacOS/CoreAudio
+       0x124df4000 -        0x125557fff com.apple.audio.AudioDSPComponents (1.0) <36edc68b-1240-36b0-b344-fff4d7cbcafe> /System/Library/Components/AudioDSP.component/Contents/MacOS/AudioDSP
+       0x131000000 -        0x131877fff com.apple.AGXMetalG16G-B0 (353.14) <9b0a2398-8610-35d6-b7f3-b76933f2aaf4> /System/Library/Extensions/AGXMetalG16G_B0.bundle/Contents/MacOS/AGXMetalG16G_B0
+       0x1269bc000 -        0x1269c3fff _json.cpython-313-darwin.so (*) <899eec37-eab4-30e7-9442-cc148127d1e4> /Users/USER/*/_json.cpython-313-darwin.so
+       0x117c98000 -        0x117c9ffff sdl2.cpython-313-darwin.so (*) <5aff5855-5cd6-33ed-8bf8-7ce00cf4a349> /Users/USER/*/sdl2.cpython-313-darwin.so
+       0x1264b8000 -        0x1264dbfff audio.cpython-313-darwin.so (*) <92ed2d9b-df58-3fd0-95b2-8caf81cdcd70> /Users/USER/*/audio.cpython-313-darwin.so
+       0x12654c000 -        0x12657ffff video.cpython-313-darwin.so (*) <9603b5e9-19c6-3bd7-97e3-5817d43a6c5d> /Users/USER/*/video.cpython-313-darwin.so
+       0x186dc0000 -        0x186e734ff dyld (*) <74e52480-c2bd-3c8d-812d-95fe2b74a096> /usr/lib/dyld
+               0x0 - 0xffffffffffffffff ??? (*) <00000000-0000-0000-0000-000000000000> ???
+       0x1871b2000 -        0x1871ba963 libsystem_platform.dylib (*) <edb83a19-ec17-32de-9350-6145970a85d6> /usr/lib/system/libsystem_platform.dylib
+       0x187167000 -        0x1871a42e7 libsystem_kernel.dylib (*) <c6a4a4cb-92e6-3baf-aae0-e8306259209a> /usr/lib/system/libsystem_kernel.dylib
+       0x1871a5000 -        0x1871b1b3b libsystem_pthread.dylib (*) <a373f0b0-9880-326a-88b4-dd8be4e33072> /usr/lib/system/libsystem_pthread.dylib
+       0x1871eb000 -        0x1877495bf com.apple.CoreFoundation (6.9) <9b672762-7b1f-30bc-96de-f176b372d66d> /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+       0x18b665000 -        0x18cd8849f com.apple.AppKit (6.9) <b6b4bdad-6428-3e64-8747-275700109b46> /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+       0x193afa000 -        0x193b2307f com.apple.audio.caulk (1.0) <ad0b0769-76d4-3613-bae4-dbbbe05f7e3e> /System/Library/PrivateFrameworks/caulk.framework/Versions/A/caulk
+       0x1997c4000 -        0x1997e920f libAudioToolboxUtility.dylib (*) <75f77fec-be14-3c97-93da-403c3b529d3b> /usr/lib/libAudioToolboxUtility.dylib
+       0x19afa7000 -        0x19b17c05f com.apple.audio.toolbox.AudioToolbox (1.14) <e8618176-515c-39a6-9f9c-3887a723c463> /System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox
+       0x18a2fc000 -        0x18aa91e1f com.apple.audio.CoreAudio (5.0) <d13ab14d-2b45-34d0-86de-38df75bf48e5> /System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio
+       0x186fee000 -        0x18703523f libdispatch.dylib (*) <b2000cd5-f580-314a-a141-e036719d854e> /usr/lib/system/libdispatch.dylib
+       0x18d99d000 -        0x18df53a1f com.apple.SkyLight (1.600.0) <0c8f41c6-6d93-3db3-b522-ca8cff5c3b33> /System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/SkyLight
+
+External Modification Summary:
+  Calls made by other processes targeting this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by all processes on this machine:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+
+-----------
+Full Report
+-----------
+
+{"app_name":"python3.13","timestamp":"2026-10-15 20:29:17.00 -0400","app_version":"","slice_uuid":"cf020641-6ed6-32bd-b9a9-9834617293fd","build_version":"","platform":1,"share_with_app_devs":1,"is_first_party":1,"bug_type":"309","os_version":"macOS 26.6.2 (25G83)","roots_installed":0,"incident_id":"EE17985C-D3B2-4C27-A8DB-9B2025350BD5","name":"python3.13"}
+{
+  "uptime" : 4600,
+  "procRole" : "Foreground",
+  "version" : 2,
+  "userID" : 502,
+  "deployVersion" : 210,
+  "modelCode" : "Mac16,10",
+  "coalitionID" : 1191,
+  "osVersion" : {
+    "train" : "macOS 26.6.2",
+    "build" : "25G83",
+    "releaseType" : "User"
+  },
+  "captureTime" : "2026-10-15 20:29:13.4844 -0400",
+  "codeSigningMonitor" : 2,
+  "incident" : "EE17985C-D3B2-4C27-A8DB-9B2025350BD5",
+  "pid" : 4939,
+  "translated" : false,
+  "cpuType" : "ARM-64",
+  "procLaunch" : "2026-10-15 20:29:10.4640 -0400",
+  "procStartAbsTime" : 112008611179,
+  "procExitAbsTime" : 112080510862,
+  "procName" : "python3.13",
+  "procPath" : "\/Users\/USER\/*\/python",
+  "parentProc" : "zsh",
+  "parentPid" : 1792,
+  "coalitionName" : "com.microsoft.VSCode",
+  "crashReporterKey" : "EDD1577E-8087-3120-13CD-E79F48A10269",
+  "appleIntelligenceStatus" : {"state":"unavailable","reasons":["regionIneligible"]},
+  "developerMode" : 1,
+  "responsiblePid" : 1040,
+  "responsibleProc" : "Code",
+  "codeSigningID" : "66864a1a-65b9-41e5-a3ac-85f41fea3736-55554944cf0206416ed632bdb9",
+  "codeSigningTeamID" : "",
+  "codeSigningFlags" : 570425857,
+  "codeSigningValidationCategory" : 10,
+  "codeSigningTrustLevel" : 4294967295,
+  "codeSigningAuxiliaryInfo" : 0,
+  "instructionByteStream" : {"beforePC":"lmso+PoDFapID1\/46ydA+eofQPmIEwC1aAVA+QmlQjkpETA3aAdA+Q==","atPC":"CaVCOckSMDYJpUD5yT0AtQkiANApQS2RHwEJ68EQAFRoA1\/4iBAAtQ=="},
+  "bootSessionUUID" : "9C5A3D64-87FC-4873-9BE0-8A2EB8097831",
+  "sip" : "enabled",
+  "vmRegionInfo" : "0xf00004b469 is not in any region.  \n      REGION TYPE                    START - END         [ VSIZE] PRT\/MAX SHRMOD  REGION DETAIL\n      UNUSED SPACE AT START\n--->  \n      UNUSED SPACE AT END",
+  "exception" : {"codes":"0x0000000000000001, 0x000000f00004b469","rawCodes":[1,1030792459369],"type":"EXC_BAD_ACCESS","signal":"SIGSEGV","subtype":"KERN_INVALID_ADDRESS at 0x000000f00004b469"},
+  "termination" : {"flags":0,"code":11,"namespace":"SIGNAL","indicator":"Segmentation fault: 11","byProc":"exc handler","byPid":4939},
+  "vmregioninfo" : "0xf00004b469 is not in any region.  \n      REGION TYPE                    START - END         [ VSIZE] PRT\/MAX SHRMOD  REGION DETAIL\n      UNUSED SPACE AT START\n--->  \n      UNUSED SPACE AT END",
+  "extMods" : {"caller":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"system":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"targeted":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"warnings":0},
+  "faultingThread" : 0,
+  "threads" : [{"triggered":true,"id":79397,"threadState":{"x":[{"value":4386792408},{"value":0},{"value":18446744073709551592},{"value":4386792424},{"value":4386792512},{"value":119},{"value":119},{"value":256},{"value":1030792459200},{"value":21},{"value":5233459352},{"value":4377181808},{"value":40},{"value":4338893344,"symbolLocation":87808,"symbol":"_PyRuntime"},{"value":5233459352},{"value":4699127817},{"value":6561681456,"symbolLocation":0,"symbol":"__bzero"},{"value":5233459328},{"value":0},{"value":4338798040,"symbolLocation":0,"symbol":"PyUnicode_Type"},{"value":15761756741152240186},{"value":4387025856},{"value":645922816},{"value":4386792400},{"value":645918720},{"value":4386792368},{"value":4387025840},{"value":4386676592},{"value":4338893344,"symbolLocation":87808,"symbol":"_PyRuntime"}],"flavor":"ARM_THREAD_STATE64","lr":{"value":4334334348},"cpsr":{"value":1073741824},"fp":{"value":6133399296},"sp":{"value":6133399136},"esr":{"value":2449473541,"description":"(Data Abort) byte read Translation fault"},"pc":{"value":4334334416,"matchesCrashFrame":1},"far":{"value":1030792459369}},"queue":"com.apple.main-thread","frames":[{"imageOffset":864720,"symbol":"_PyDict_SetItem_Take2","symbolLocation":416,"imageIndex":0},{"imageOffset":951144,"symbol":"PyDict_SetItemString","symbolLocation":160,"imageIndex":0},{"imageOffset":24704,"symbol":"dict_from_event","symbolLocation":4988,"imageIndex":13},{"imageOffset":11180,"symbol":"pg_event_get","symbolLocation":852,"imageIndex":13},{"imageOffset":1010276,"symbol":"cfunction_call","symbolLocation":76,"imageIndex":0},{"imageOffset":2240688,"symbol":"_PyEval_EvalFrameDefault","symbolLocation":55044,"imageIndex":0},{"imageOffset":2174968,"symbol":"PyEval_EvalCode","symbolLocation":148,"imageIndex":0},{"imageOffset":3005424,"symbol":"run_eval_code_obj","symbolLocation":100,"imageIndex":0},{"imageOffset":3003588,"symbol":"run_mod","symbolLocation":148,"imageIndex":0},{"imageOffset":3002952,"symbol":"pyrun_file","symbolLocation":144,"imageIndex":0},{"imageOffset":3001116,"symbol":"_PyRun_SimpleFileObject","symbolLocation":256,"imageIndex":0},{"imageOffset":2999140,"symbol":"_PyRun_AnyFileObject","symbolLocation":80,"imageIndex":0},{"imageOffset":3182108,"symbol":"pymain_run_file_obj","symbolLocation":180,"imageIndex":0},{"imageOffset":3179584,"symbol":"pymain_run_file","symbolLocation":76,"imageIndex":0},{"imageOffset":3176260,"symbol":"Py_RunMain","symbolLocation":1036,"imageIndex":0},{"imageOffset":3182904,"symbol":"pymain_main","symbolLocation":476,"imageIndex":0},{"imageOffset":9448,"symbol":"main","symbolLocation":60,"imageIndex":0},{"imageOffset":132324,"symbol":"start","symbolLocation":6992,"imageIndex":98}]},{"id":79402,"name":"SDLTimer","threadState":{"x":[{"value":260},{"value":0},{"value":0},{"value":0},{"value":0},{"value":65704},{"value":4294967},{"value":294999000},{"value":6133968392},{"value":0},{"value":0},{"value":2},{"value":2},{"value":0},{"value":0},{"value":0},{"value":305},{"value":8407659280},{"value":0},{"value":5233011712},{"value":5232995440},{"value":6133969120},{"value":294999000},{"value":4294967},{"value":0},{"value":1},{"value":256},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6561644840},"cpsr":{"value":1610612736},"fp":{"value":6133968512},"sp":{"value":6133968368},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561379596},"far":{"value":0}},"frames":[{"imageOffset":17676,"symbol":"__psynch_cvwait","symbolLocation":8,"imageIndex":101},{"imageOffset":28968,"symbol":"_pthread_cond_wait","symbolLocation":980,"imageIndex":102},{"imageOffset":919928,"symbol":"SDL_CondWaitTimeout_REAL","symbolLocation":148,"imageIndex":2},{"imageOffset":918608,"symbol":"SDL_SemWaitTimeout_REAL","symbolLocation":80,"imageIndex":2},{"imageOffset":475352,"symbol":"SDL_TimerThread","symbolLocation":84,"imageIndex":2},{"imageOffset":474252,"symbol":"SDL_RunThread","symbolLocation":48,"imageIndex":2},{"imageOffset":917560,"symbol":"RunThread","symbolLocation":12,"imageIndex":2},{"imageOffset":27736,"symbol":"_pthread_start","symbolLocation":136,"imageIndex":102},{"imageOffset":7196,"symbol":"thread_start","symbolLocation":8,"imageIndex":102}]},{"id":79413,"frames":[],"threadState":{"x":[{"value":6134542336},{"value":4355},{"value":6134005760},{"value":0},{"value":409604},{"value":18446744073709551615},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":0},"cpsr":{"value":0},"fp":{"value":0},"sp":{"value":6134542336},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561623048},"far":{"value":0}}},{"id":79414,"frames":[],"threadState":{"x":[{"value":6135115776},{"value":10243},{"value":6134579200},{"value":6135114624},{"value":5193734},{"value":1},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":0},"cpsr":{"value":0},"fp":{"value":0},"sp":{"value":6135114464},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561623048},"far":{"value":0}}},{"id":79417,"name":"com.apple.NSEventThread","threadState":{"x":[{"value":0},{"value":21592279046},{"value":8589934592},{"value":96769908146176},{"value":0},{"value":96769908146176},{"value":2},{"value":4294967295},{"value":0},{"value":17179869184},{"value":0},{"value":2},{"value":0},{"value":0},{"value":22531},{"value":0},{"value":18446744073709551569},{"value":8407661160},{"value":0},{"value":4294967295},{"value":2},{"value":96769908146176},{"value":0},{"value":96769908146176},{"value":21592279046},{"value":6135685256},{"value":8589934592},{"value":18446744073709550527},{"value":4412409862}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6561441188},"cpsr":{"value":0},"fp":{"value":6135685104},"sp":{"value":6135685024},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561365044},"far":{"value":0}},"frames":[{"imageOffset":3124,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":101},{"imageOffset":79268,"symbol":"mach_msg2_internal","symbolLocation":76,"imageIndex":101},{"imageOffset":39360,"symbol":"mach_msg_overwrite","symbolLocation":480,"imageIndex":101},{"imageOffset":4032,"symbol":"mach_msg","symbolLocation":24,"imageIndex":101},{"imageOffset":516360,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":160,"imageIndex":103},{"imageOffset":510452,"symbol":"__CFRunLoopRun","symbolLocation":1188,"imageIndex":103},{"imageOffset":1372772,"symbol":"_CFRunLoopRunSpecificWithOptions","symbolLocation":532,"imageIndex":103},{"imageOffset":1420460,"symbol":"_NSEventThread","symbolLocation":184,"imageIndex":104},{"imageOffset":27736,"symbol":"_pthread_start","symbolLocation":136,"imageIndex":102},{"imageOffset":7196,"symbol":"thread_start","symbolLocation":8,"imageIndex":102}]},{"id":79418,"frames":[],"threadState":{"x":[{"value":6136262656},{"value":27923},{"value":6135726080},{"value":0},{"value":409604},{"value":18446744073709551615},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":0},"cpsr":{"value":0},"fp":{"value":0},"sp":{"value":6136262656},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561623048},"far":{"value":0}}},{"id":79426,"name":"caulk.messenger.shared:17","threadState":{"x":[{"value":14},{"value":4422931866},{"value":0},{"value":6136836202},{"value":4422931840},{"value":25},{"value":0},{"value":0},{"value":0},{"value":4294967295},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":18446744073709551580},{"value":8407663656},{"value":0},{"value":4422950688},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6772735488},"cpsr":{"value":2147483648},"fp":{"value":6136835968},"sp":{"value":6136835936},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561364912},"far":{"value":0}},"frames":[{"imageOffset":2992,"symbol":"semaphore_wait_trap","symbolLocation":8,"imageIndex":101},{"imageOffset":7680,"symbol":"caulk::semaphore::timed_wait(double)","symbolLocation":224,"imageIndex":105},{"imageOffset":7340,"symbol":"caulk::concurrent::details::worker_thread::run()","symbolLocation":32,"imageIndex":105},{"imageOffset":6476,"symbol":"void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*>>>(void*)","symbolLocation":96,"imageIndex":105},{"imageOffset":27736,"symbol":"_pthread_start","symbolLocation":136,"imageIndex":102},{"imageOffset":7196,"symbol":"thread_start","symbolLocation":8,"imageIndex":102}]},{"id":79427,"name":"caulk.messenger.shared:high","threadState":{"x":[{"value":14},{"value":43779},{"value":43779},{"value":21},{"value":4294967295},{"value":0},{"value":0},{"value":0},{"value":0},{"value":4294967295},{"value":1},{"value":4422952712},{"value":0},{"value":0},{"value":0},{"value":0},{"value":18446744073709551580},{"value":8407663656},{"value":0},{"value":4422952784},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6772735488},"cpsr":{"value":2147483648},"fp":{"value":6137409408},"sp":{"value":6137409376},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561364912},"far":{"value":0}},"frames":[{"imageOffset":2992,"symbol":"semaphore_wait_trap","symbolLocation":8,"imageIndex":101},{"imageOffset":7680,"symbol":"caulk::semaphore::timed_wait(double)","symbolLocation":224,"imageIndex":105},{"imageOffset":7340,"symbol":"caulk::concurrent::details::worker_thread::run()","symbolLocation":32,"imageIndex":105},{"imageOffset":6476,"symbol":"void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*>>>(void*)","symbolLocation":96,"imageIndex":105},{"imageOffset":27736,"symbol":"_pthread_start","symbolLocation":136,"imageIndex":102},{"imageOffset":7196,"symbol":"thread_start","symbolLocation":8,"imageIndex":102}]},{"id":79432,"name":"AudioQueue thread","threadState":{"x":[{"value":268451845},{"value":21592279046},{"value":8589934592},{"value":306776629051392},{"value":0},{"value":306776629051392},{"value":2},{"value":4294967295},{"value":0},{"value":17179869184},{"value":0},{"value":2},{"value":0},{"value":0},{"value":71427},{"value":1099511628032},{"value":18446744073709551569},{"value":8407661160},{"value":0},{"value":4294967295},{"value":2},{"value":306776629051392},{"value":0},{"value":306776629051392},{"value":21592279046},{"value":6137978856},{"value":8589934592},{"value":18446744073709550527},{"value":4412409862}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6561441188},"cpsr":{"value":0},"fp":{"value":6137978704},"sp":{"value":6137978624},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561365044},"far":{"value":0}},"frames":[{"imageOffset":3124,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":101},{"imageOffset":79268,"symbol":"mach_msg2_internal","symbolLocation":76,"imageIndex":101},{"imageOffset":39360,"symbol":"mach_msg_overwrite","symbolLocation":480,"imageIndex":101},{"imageOffset":4032,"symbol":"mach_msg","symbolLocation":24,"imageIndex":101},{"imageOffset":516360,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":160,"imageIndex":103},{"imageOffset":510452,"symbol":"__CFRunLoopRun","symbolLocation":1188,"imageIndex":103},{"imageOffset":1372772,"symbol":"_CFRunLoopRunSpecificWithOptions","symbolLocation":532,"imageIndex":103},{"imageOffset":1019728,"symbol":"audioqueue_thread","symbolLocation":1204,"imageIndex":2},{"imageOffset":474252,"symbol":"SDL_RunThread","symbolLocation":48,"imageIndex":2},{"imageOffset":917560,"symbol":"RunThread","symbolLocation":12,"imageIndex":2},{"imageOffset":27736,"symbol":"_pthread_start","symbolLocation":136,"imageIndex":102},{"imageOffset":7196,"symbol":"thread_start","symbolLocation":8,"imageIndex":102}]},{"id":79433,"name":"caulk::deferred_logger","threadState":{"x":[{"value":14},{"value":35180077129727},{"value":0},{"value":1},{"value":0},{"value":1},{"value":0},{"value":0},{"value":0},{"value":4294967295},{"value":0},{"value":0},{"value":4369448984},{"value":18446744073709551615},{"value":8191},{"value":6138556136},{"value":18446744073709551580},{"value":8407663656},{"value":0},{"value":4666341400},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6772735488},"cpsr":{"value":2147483648},"fp":{"value":6138556288},"sp":{"value":6138556256},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561364912},"far":{"value":0}},"frames":[{"imageOffset":2992,"symbol":"semaphore_wait_trap","symbolLocation":8,"imageIndex":101},{"imageOffset":7680,"symbol":"caulk::semaphore::timed_wait(double)","symbolLocation":224,"imageIndex":105},{"imageOffset":7340,"symbol":"caulk::concurrent::details::worker_thread::run()","symbolLocation":32,"imageIndex":105},{"imageOffset":6476,"symbol":"void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*>>>(void*)","symbolLocation":96,"imageIndex":105},{"imageOffset":27736,"symbol":"_pthread_start","symbolLocation":136,"imageIndex":102},{"imageOffset":7196,"symbol":"thread_start","symbolLocation":8,"imageIndex":102}]},{"id":79434,"name":"AQConverterThread","threadState":{"x":[{"value":260},{"value":0},{"value":100608},{"value":0},{"value":0},{"value":160},{"value":0},{"value":0},{"value":6139129448},{"value":0},{"value":0},{"value":2},{"value":2},{"value":0},{"value":0},{"value":0},{"value":305},{"value":8407659280},{"value":0},{"value":4666420792},{"value":4666420856},{"value":6139130080},{"value":0},{"value":0},{"value":100608},{"value":100609},{"value":100864},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6561644840},"cpsr":{"value":1610612736},"fp":{"value":6139129568},"sp":{"value":6139129424},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561379596},"far":{"value":0}},"frames":[{"imageOffset":17676,"symbol":"__psynch_cvwait","symbolLocation":8,"imageIndex":101},{"imageOffset":28968,"symbol":"_pthread_cond_wait","symbolLocation":980,"imageIndex":102},{"imageOffset":127092,"symbol":"CADeprecated::CAGuard::Wait()","symbolLocation":76,"imageIndex":106},{"imageOffset":152976,"symbol":"AQConverterManager::AQConverterThread::ConverterThreadEntry(void*)","symbolLocation":412,"imageIndex":107},{"imageOffset":40280,"symbol":"CADeprecated::CAPThread::Entry(void*)","symbolLocation":96,"imageIndex":106},{"imageOffset":27736,"symbol":"_pthread_start","symbolLocation":136,"imageIndex":102},{"imageOffset":7196,"symbol":"thread_start","symbolLocation":8,"imageIndex":102}]},{"id":79435,"name":"com.apple.audio.IOThread.client","threadState":{"x":[{"value":0},{"value":76035},{"value":0},{"value":0},{"value":0},{"value":6139702144},{"value":5368758288},{"value":0},{"value":1},{"value":4698056040651161831},{"value":1099511628032},{"value":1099511628034},{"value":0},{"value":4423065664},{"value":0},{"value":20230333},{"value":18446744073709551579},{"value":8407663664},{"value":0},{"value":4832284472},{"value":4832284464},{"value":4832284592},{"value":8384595048,"symbolLocation":0,"symbol":"StaticContainer<HALC_ShellInfo_Statics>::s_statics_initialized (.0)"},{"value":8384593920,"symbolLocation":2128,"symbol":"sVarispeedRateTable"},{"value":80},{"value":0},{"value":6620619495},{"value":6139702848},{"value":4832283648}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6772855496},"cpsr":{"value":1610612736},"fp":{"value":6139702544},"sp":{"value":6139702528},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561364924},"far":{"value":0}},"frames":[{"imageOffset":3004,"symbol":"semaphore_wait_signal_trap","symbolLocation":8,"imageIndex":101},{"imageOffset":127688,"symbol":"caulk::mach::semaphore::wait_signal_or_error(caulk::mach::semaphore&)","symbolLocation":36,"imageIndex":105},{"imageOffset":2103700,"symbol":"HALC_ProxyIOContext::IOWorkLoop()","symbolLocation":4952,"imageIndex":108},{"imageOffset":2097056,"symbol":"invocation function for block in HALC_ProxyIOContext::HALC_ProxyIOContext(unsigned int, unsigned int)","symbolLocation":172,"imageIndex":108},{"imageOffset":3923968,"symbol":"HALC_IOThread::Entry(void*)","symbolLocation":88,"imageIndex":108},{"imageOffset":27736,"symbol":"_pthread_start","symbolLocation":136,"imageIndex":102},{"imageOffset":7196,"symbol":"thread_start","symbolLocation":8,"imageIndex":102}]},{"id":79438,"name":"AudioSession - RootQueue","threadState":{"x":[{"value":14},{"value":4294967115611373572},{"value":999999958},{"value":68719460488},{"value":5233158912},{"value":3},{"value":2},{"value":6140276960},{"value":999999958},{"value":3},{"value":13835058055282163714},{"value":80000000},{"value":5232410420},{"value":4340210208},{"value":8},{"value":129},{"value":18446744073709551578},{"value":8407663640},{"value":0},{"value":112140835977},{"value":4666425728},{"value":1000000000},{"value":4666425592},{"value":6140276960},{"value":0},{"value":0},{"value":18446744071411073023},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6560042424},"cpsr":{"value":2147483648},"fp":{"value":6140276544},"sp":{"value":6140276512},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561364936},"far":{"value":0}},"frames":[{"imageOffset":3016,"symbol":"semaphore_timedwait_trap","symbolLocation":8,"imageIndex":101},{"imageOffset":224696,"symbol":"_dispatch_sema4_timedwait","symbolLocation":64,"imageIndex":109},{"imageOffset":15080,"symbol":"_dispatch_semaphore_wait_slow","symbolLocation":76,"imageIndex":109},{"imageOffset":79740,"symbol":"_dispatch_worker_thread","symbolLocation":324,"imageIndex":109},{"imageOffset":27736,"symbol":"_pthread_start","symbolLocation":136,"imageIndex":102},{"imageOffset":7196,"symbol":"thread_start","symbolLocation":8,"imageIndex":102}]},{"id":79458,"frames":[],"threadState":{"x":[{"value":6140850176},{"value":119555},{"value":6140313600},{"value":0},{"value":409604},{"value":18446744073709551615},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":0},"cpsr":{"value":0},"fp":{"value":0},"sp":{"value":6140850176},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561623048},"far":{"value":0}}},{"id":79486,"frames":[],"threadState":{"x":[{"value":6141423616},{"value":97539},{"value":6140887040},{"value":6141422464},{"value":5193734},{"value":1},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":0},"cpsr":{"value":0},"fp":{"value":0},"sp":{"value":6141422448},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561623048},"far":{"value":0}}},{"id":79487,"threadState":{"x":[{"value":268451845},{"value":17179869442},{"value":0},{"value":408172216975360},{"value":0},{"value":408172216975360},{"value":52},{"value":500},{"value":0},{"value":17179869184},{"value":52},{"value":0},{"value":0},{"value":0},{"value":95035},{"value":9005713196056577},{"value":18446744073709551569},{"value":8407661160},{"value":0},{"value":500},{"value":52},{"value":408172216975360},{"value":0},{"value":408172216975360},{"value":17179869442},{"value":6141995008},{"value":0},{"value":18446744073709550527},{"value":258}],"flavor":"ARM_THREAD_STATE64","lr":{"value":6561441188},"cpsr":{"value":0},"fp":{"value":6141994608},"sp":{"value":6141994528},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561365044},"far":{"value":0}},"queue":"NSCGSDisableUpdates","frames":[{"imageOffset":3124,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":101},{"imageOffset":79268,"symbol":"mach_msg2_internal","symbolLocation":76,"imageIndex":101},{"imageOffset":39360,"symbol":"mach_msg_overwrite","symbolLocation":480,"imageIndex":101},{"imageOffset":4032,"symbol":"mach_msg","symbolLocation":24,"imageIndex":101},{"imageOffset":948352,"symbol":"_SLSTransactionWaitSource(_SLSTransaction*, bool)","symbolLocation":156,"imageIndex":110},{"imageOffset":16078612,"symbol":"__NSCGSTransactionRunPostCommitActions__block_invoke","symbolLocation":32,"imageIndex":104},{"imageOffset":16077704,"symbol":"___disable_updates_sync_block_invoke.143","symbolLocation":44,"imageIndex":104},{"imageOffset":6696,"symbol":"_dispatch_call_block_and_release","symbolLocation":32,"imageIndex":109},{"imageOffset":111792,"symbol":"_dispatch_client_callout","symbolLocation":16,"imageIndex":109},{"imageOffset":41008,"symbol":"_dispatch_lane_serial_drain","symbolLocation":740,"imageIndex":109},{"imageOffset":43876,"symbol":"_dispatch_lane_invoke","symbolLocation":448,"imageIndex":109},{"imageOffset":85556,"symbol":"_dispatch_root_queue_drain_deferred_wlh","symbolLocation":284,"imageIndex":109},{"imageOffset":83764,"symbol":"_dispatch_workloop_worker_thread","symbolLocation":720,"imageIndex":109},{"imageOffset":11968,"symbol":"_pthread_wqthread","symbolLocation":292,"imageIndex":102},{"imageOffset":7184,"symbol":"start_wqthread","symbolLocation":8,"imageIndex":102}]},{"id":79488,"frames":[],"threadState":{"x":[{"value":6142570496},{"value":97795},{"value":6142033920},{"value":0},{"value":409604},{"value":18446744073709551615},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":0},"cpsr":{"value":0},"fp":{"value":0},"sp":{"value":6142570496},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561623048},"far":{"value":0}}},{"id":79489,"frames":[],"threadState":{"x":[{"value":6143143936},{"value":98051},{"value":6142607360},{"value":0},{"value":409604},{"value":18446744073709551615},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":0},"cpsr":{"value":0},"fp":{"value":0},"sp":{"value":6143143936},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561623048},"far":{"value":0}}},{"id":79490,"frames":[],"threadState":{"x":[{"value":6143717376},{"value":119043},{"value":6143180800},{"value":6143716224},{"value":1982472},{"value":1},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":0},"cpsr":{"value":0},"fp":{"value":0},"sp":{"value":6143716224},"esr":{"value":1442840704,"description":"(Syscall)"},"pc":{"value":6561623048},"far":{"value":0}}},{"id":79491,"frames":[],"threadState":{"x":[{"value":6144290816},{"value":0},{"value":6143754240},{"value":0},{"value":278532},{"value":18446744073709551615},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0},{"value":0}],"flavor":"ARM_THREAD_STATE64","lr":{"value":0},"cpsr":{"value":0},"fp":{"value":0},"sp":{"value":6144290816},"esr":{"value":0},"pc":{"value":6561623048},"far":{"value":0}}}],
+  "usedImages" : [
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4333469696,
+    "size" : 4784128,
+    "uuid" : "cf020641-6ed6-32bd-b9a9-9834617293fd",
+    "path" : "\/Users\/USER\/*\/python3.13",
+    "name" : "python3.13"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4341563392,
+    "size" : 32768,
+    "uuid" : "4375b6b9-e7c9-33c5-809a-f7330bc9855d",
+    "path" : "\/Users\/USER\/*\/base.cpython-313-darwin.so",
+    "name" : "base.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4346789888,
+    "size" : 1310720,
+    "uuid" : "7565a66b-4bdf-3376-b81d-b36aadbb746d",
+    "path" : "\/Users\/USER\/*\/libSDL2-2.0.0.dylib",
+    "name" : "libSDL2-2.0.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4341776384,
+    "size" : 49152,
+    "uuid" : "09ec4bde-459a-3fae-9ce5-240fed679bec",
+    "path" : "\/Users\/USER\/*\/constants.cpython-313-darwin.so",
+    "name" : "constants.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4341891072,
+    "size" : 32768,
+    "uuid" : "bb2074dc-ea14-36ae-9f87-d4c45dedcd7c",
+    "path" : "\/Users\/USER\/*\/rect.cpython-313-darwin.so",
+    "name" : "rect.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4341661696,
+    "size" : 16384,
+    "uuid" : "073ce7cc-2297-3fe7-a47b-4ac1debb770f",
+    "path" : "\/Users\/USER\/*\/rwobject.cpython-313-darwin.so",
+    "name" : "rwobject.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4344610816,
+    "size" : 16384,
+    "uuid" : "97287733-da2b-36b9-909c-cb42d4ee0a5f",
+    "path" : "\/Users\/USER\/*\/surflock.cpython-313-darwin.so",
+    "name" : "surflock.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4344692736,
+    "size" : 32768,
+    "uuid" : "e4405af0-f93c-3a43-819f-100b28b90ae0",
+    "path" : "\/Users\/USER\/*\/color.cpython-313-darwin.so",
+    "name" : "color.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4344791040,
+    "size" : 16384,
+    "uuid" : "1c6fbdc3-06c1-3ff2-853c-29347eb33c4b",
+    "path" : "\/Users\/USER\/*\/bufferproxy.cpython-313-darwin.so",
+    "name" : "bufferproxy.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4345020416,
+    "size" : 65536,
+    "uuid" : "1c3af344-d088-3c84-bb49-ecd5ca6f7c67",
+    "path" : "\/Users\/USER\/*\/math.cpython-313-darwin.so",
+    "name" : "math.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4345167872,
+    "size" : 32768,
+    "uuid" : "b8a46c37-472f-3752-bd5c-bccf9c7bc5a3",
+    "path" : "\/Users\/USER\/*\/display.cpython-313-darwin.so",
+    "name" : "display.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4345577472,
+    "size" : 212992,
+    "uuid" : "e74158a7-3fa0-3f9d-bec6-dbb446cca998",
+    "path" : "\/Users\/USER\/*\/surface.cpython-313-darwin.so",
+    "name" : "surface.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4345282560,
+    "size" : 49152,
+    "uuid" : "e9c71ee8-86d3-3a12-9d2e-8b0784cb0cd9",
+    "path" : "\/Users\/USER\/*\/draw.cpython-313-darwin.so",
+    "name" : "draw.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4344872960,
+    "size" : 32768,
+    "uuid" : "a4fc62f3-ed9b-312c-bf8f-6181385cf1ae",
+    "path" : "\/Users\/USER\/*\/event.cpython-313-darwin.so",
+    "name" : "event.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4345397248,
+    "size" : 32768,
+    "uuid" : "0842c5ca-b694-3bed-a8f9-b101a54a4c02",
+    "path" : "\/Users\/USER\/*\/image.cpython-313-darwin.so",
+    "name" : "image.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4345495552,
+    "size" : 16384,
+    "uuid" : "80390a40-621b-31d7-bd5a-101171feb8e3",
+    "path" : "\/Users\/USER\/*\/imageext.cpython-313-darwin.so",
+    "name" : "imageext.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4346085376,
+    "size" : 131072,
+    "uuid" : "7d7b4fb3-aefa-354d-a777-aa77f90b54a7",
+    "path" : "\/Users\/USER\/*\/libSDL2_image-2.0.0.dylib",
+    "name" : "libSDL2_image-2.0.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4348985344,
+    "size" : 180224,
+    "uuid" : "05971b3a-7483-3b94-b040-d102813ba50b",
+    "path" : "\/Users\/USER\/*\/libpng16.16.dylib",
+    "name" : "libpng16.16.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4349296640,
+    "size" : 344064,
+    "uuid" : "59caeede-5673-3b3c-a2fd-fd3077adc4ea",
+    "path" : "\/Users\/USER\/*\/libjpeg.62.3.0.dylib",
+    "name" : "libjpeg.62.3.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4350230528,
+    "size" : 409600,
+    "uuid" : "c4ef960f-1304-37c6-a540-d25213857ccd",
+    "path" : "\/Users\/USER\/*\/libtiff.5.8.0.dylib",
+    "name" : "libtiff.5.8.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4346298368,
+    "size" : 98304,
+    "uuid" : "079a86cb-5a99-3378-933c-22574044f614",
+    "path" : "\/Users\/USER\/*\/libz.1.2.11.zlib-ng.dylib",
+    "name" : "libz.1.2.11.zlib-ng.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4351295488,
+    "size" : 376832,
+    "uuid" : "d1fe1b07-529e-3530-9f27-dfc5569bf982",
+    "path" : "\/Users\/USER\/*\/libwebp.7.dylib",
+    "name" : "libwebp.7.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4345872384,
+    "size" : 16384,
+    "uuid" : "07fbf681-5a04-30c1-a106-1c9727a8e6b1",
+    "path" : "\/Users\/USER\/*\/libsharpyuv.0.dylib",
+    "name" : "libsharpyuv.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4345954304,
+    "size" : 16384,
+    "uuid" : "709aa48f-1548-35b4-a82d-837a5bfa92f0",
+    "path" : "\/Users\/USER\/*\/joystick.cpython-313-darwin.so",
+    "name" : "joystick.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4346462208,
+    "size" : 16384,
+    "uuid" : "c542a124-563c-36cf-9935-268a1ba037a4",
+    "path" : "\/Users\/USER\/*\/key.cpython-313-darwin.so",
+    "name" : "key.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4346544128,
+    "size" : 16384,
+    "uuid" : "062bcd92-3f18-345c-bf90-57520e428331",
+    "path" : "\/Users\/USER\/*\/mouse.cpython-313-darwin.so",
+    "name" : "mouse.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4346626048,
+    "size" : 16384,
+    "uuid" : "e3395869-95a1-389e-9572-4b2898f8be68",
+    "path" : "\/Users\/USER\/*\/time.cpython-313-darwin.so",
+    "name" : "time.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4349853696,
+    "size" : 65536,
+    "uuid" : "86750ef8-5ab9-32c1-b01f-2e0bbe74f115",
+    "path" : "\/Users\/USER\/*\/mask.cpython-313-darwin.so",
+    "name" : "mask.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4346707968,
+    "size" : 16384,
+    "uuid" : "42b477c7-13f6-3780-bfb8-928409ca83fd",
+    "path" : "\/Users\/USER\/*\/_heapq.cpython-313-darwin.so",
+    "name" : "_heapq.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4349722624,
+    "size" : 16384,
+    "uuid" : "400cf853-2c71-3389-91f0-e56be8af6df3",
+    "path" : "\/Users\/USER\/*\/_queue.cpython-313-darwin.so",
+    "name" : "_queue.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4349984768,
+    "size" : 32768,
+    "uuid" : "01625bf7-e9f6-39b8-a1ab-5cf975f85b1b",
+    "path" : "\/Users\/USER\/*\/pixelcopy.cpython-313-darwin.so",
+    "name" : "pixelcopy.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4350083072,
+    "size" : 32768,
+    "uuid" : "20e60628-079d-36ab-a0a8-2a2b5abc9b8c",
+    "path" : "\/Users\/USER\/*\/pixelarray.cpython-313-darwin.so",
+    "name" : "pixelarray.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4350869504,
+    "size" : 65536,
+    "uuid" : "b16be3ab-9478-32e5-b664-107bf58f3a47",
+    "path" : "\/Users\/USER\/*\/transform.cpython-313-darwin.so",
+    "name" : "transform.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4350738432,
+    "size" : 16384,
+    "uuid" : "22c8c776-eb29-3b3f-aaf7-3a22942552d2",
+    "path" : "\/Users\/USER\/*\/font.cpython-313-darwin.so",
+    "name" : "font.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4355014656,
+    "size" : 1425408,
+    "uuid" : "cb272dad-0458-387e-8246-17b30a9f7ed5",
+    "path" : "\/Users\/USER\/*\/libSDL2_ttf-2.0.0.dylib",
+    "name" : "libSDL2_ttf-2.0.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4351000576,
+    "size" : 16384,
+    "uuid" : "dd6e055c-b1e9-35f5-8548-6029b39baebf",
+    "path" : "\/Users\/USER\/*\/fcntl.cpython-313-darwin.so",
+    "name" : "fcntl.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4351082496,
+    "size" : 16384,
+    "uuid" : "8958346c-ff4a-38f0-bfe0-361d85a42830",
+    "path" : "\/Users\/USER\/*\/_posixsubprocess.cpython-313-darwin.so",
+    "name" : "_posixsubprocess.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4351164416,
+    "size" : 32768,
+    "uuid" : "1e496282-fd12-3fd7-8bcc-58d5e115a250",
+    "path" : "\/Users\/USER\/*\/select.cpython-313-darwin.so",
+    "name" : "select.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4354064384,
+    "size" : 49152,
+    "uuid" : "4a640229-aa61-3059-ab14-073faccffa4d",
+    "path" : "\/Users\/USER\/*\/math.cpython-313-darwin.so",
+    "name" : "math.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4353949696,
+    "size" : 16384,
+    "uuid" : "d07e82af-4401-316d-b3dc-23a5b5f6d87d",
+    "path" : "\/Users\/USER\/*\/mixer_music.cpython-313-darwin.so",
+    "name" : "mixer_music.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4354457600,
+    "size" : 147456,
+    "uuid" : "b2188d99-ae4e-3479-9ae3-107dc7385165",
+    "path" : "\/Users\/USER\/*\/libSDL2_mixer-2.0.0.dylib",
+    "name" : "libSDL2_mixer-2.0.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4357537792,
+    "size" : 262144,
+    "uuid" : "3cbeecea-0658-390d-809b-9d598bb542e7",
+    "path" : "\/Users\/USER\/*\/libmodplug.1.dylib",
+    "name" : "libmodplug.1.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4359127040,
+    "size" : 360448,
+    "uuid" : "78868714-6c04-3400-9e13-7f46bff6f7c4",
+    "path" : "\/Users\/USER\/*\/libfluidsynth.3.1.1.dylib",
+    "name" : "libfluidsynth.3.1.1.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4354179072,
+    "size" : 32768,
+    "uuid" : "bca7e222-6bb7-3c0a-9ee5-7e9eac0a191b",
+    "path" : "\/Users\/USER\/*\/libvorbisfile.3.3.8.dylib",
+    "name" : "libvorbisfile.3.3.8.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4357128192,
+    "size" : 163840,
+    "uuid" : "b4aac9b1-342a-3b61-acce-fbf255cbb865",
+    "path" : "\/Users\/USER\/*\/libFLAC.8.dylib",
+    "name" : "libFLAC.8.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4359979008,
+    "size" : 245760,
+    "uuid" : "c28141b3-9399-37ab-a8eb-e2d8fbb61e65",
+    "path" : "\/Users\/USER\/*\/libmpg123.0.dylib",
+    "name" : "libmpg123.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4354277376,
+    "size" : 32768,
+    "uuid" : "fb4510e1-d6a7-3443-9265-e69e615071b0",
+    "path" : "\/Users\/USER\/*\/libopusfile.0.dylib",
+    "name" : "libopusfile.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4354736128,
+    "size" : 32768,
+    "uuid" : "91d0da59-85d7-35bf-abec-f1a81632a81e",
+    "path" : "\/Users\/USER\/*\/libogg.0.8.5.dylib",
+    "name" : "libogg.0.8.5.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4360863744,
+    "size" : 360448,
+    "uuid" : "21de877e-6080-37b6-95dc-faa383f46625",
+    "path" : "\/Users\/USER\/*\/libopus.0.dylib",
+    "name" : "libopus.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4354375680,
+    "size" : 16384,
+    "uuid" : "f6503931-5b91-391a-afda-47a897f95945",
+    "path" : "\/Users\/USER\/*\/libgthread-2.0.0.dylib",
+    "name" : "libgthread-2.0.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4363042816,
+    "size" : 1441792,
+    "uuid" : "90ae6efb-49ea-34e1-aeff-5bab09bfd685",
+    "path" : "\/Users\/USER\/*\/libglib-2.0.0.dylib",
+    "name" : "libglib-2.0.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4357390336,
+    "size" : 49152,
+    "uuid" : "938b6bf8-bd51-3da8-afe2-124278663e68",
+    "path" : "\/Users\/USER\/*\/libintl.8.dylib",
+    "name" : "libintl.8.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4361912320,
+    "size" : 425984,
+    "uuid" : "bd38b251-b980-3cab-b211-d04d4540b65f",
+    "path" : "\/Users\/USER\/*\/libsndfile.1.0.34.dylib",
+    "name" : "libsndfile.1.0.34.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4360355840,
+    "size" : 180224,
+    "uuid" : "f3094c07-bd98-319f-be3d-725a445ca738",
+    "path" : "\/Users\/USER\/*\/libvorbis.0.4.9.dylib",
+    "name" : "libvorbis.0.4.9.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4365451264,
+    "size" : 491520,
+    "uuid" : "6e9cfd79-8293-3dbf-b39f-1da0d6b78d3c",
+    "path" : "\/Users\/USER\/*\/libvorbisenc.2.0.12.dylib",
+    "name" : "libvorbisenc.2.0.12.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4358651904,
+    "size" : 32768,
+    "uuid" : "94dd0980-1dc9-34f0-8c8e-40543ca31bc5",
+    "path" : "\/Users\/USER\/*\/mixer.cpython-313-darwin.so",
+    "name" : "mixer.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4354834432,
+    "size" : 16384,
+    "uuid" : "d1261965-6ee2-3212-b08d-7cab6f8fd5a6",
+    "path" : "\/Users\/USER\/*\/scrap.cpython-313-darwin.so",
+    "name" : "scrap.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4369645568,
+    "size" : 2850816,
+    "uuid" : "a637eb83-8e07-321b-aef2-90f165609ae4",
+    "path" : "\/Users\/USER\/*\/_multiarray_umath.cpython-313-darwin.so",
+    "name" : "_multiarray_umath.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4358930432,
+    "size" : 81920,
+    "uuid" : "f5dfae17-c619-341b-a1d6-6767bdc45236",
+    "path" : "\/Users\/USER\/*\/_datetime.cpython-313-darwin.so",
+    "name" : "_datetime.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4354916352,
+    "size" : 16384,
+    "uuid" : "71533791-ad16-3c08-a773-477d68aa2861",
+    "path" : "\/Users\/USER\/*\/_contextvars.cpython-313-darwin.so",
+    "name" : "_contextvars.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4358766592,
+    "size" : 32768,
+    "uuid" : "e161c1a0-f41f-3541-bb42-f957f0954be4",
+    "path" : "\/Users\/USER\/*\/_struct.cpython-313-darwin.so",
+    "name" : "_struct.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4361371648,
+    "size" : 98304,
+    "uuid" : "41f662de-e8ea-345b-bcbd-6cf2c15342c2",
+    "path" : "\/Users\/USER\/*\/_pickle.cpython-313-darwin.so",
+    "name" : "_pickle.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4361551872,
+    "size" : 98304,
+    "uuid" : "6bd32df0-f4d0-3c8e-a551-1ec388685a14",
+    "path" : "\/Users\/USER\/*\/_ctypes.cpython-313-darwin.so",
+    "name" : "_ctypes.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4360732672,
+    "size" : 81920,
+    "uuid" : "41675ff9-a76f-3c38-9559-da36d2201a80",
+    "path" : "\/Users\/USER\/*\/libffi.8.dylib",
+    "name" : "libffi.8.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4362452992,
+    "size" : 98304,
+    "uuid" : "9e986417-03f2-387e-bc2f-1ba6b419f70b",
+    "path" : "\/Users\/USER\/*\/_umath_linalg.cpython-313-darwin.so",
+    "name" : "_umath_linalg.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4360601600,
+    "size" : 32768,
+    "uuid" : "0860cab5-5c5b-307f-bfdf-1a8854c3fd41",
+    "path" : "\/Users\/USER\/*\/binascii.cpython-313-darwin.so",
+    "name" : "binascii.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4362616832,
+    "size" : 98304,
+    "uuid" : "b5522aa4-7677-3700-bc93-8931bd5d48cc",
+    "path" : "\/Users\/USER\/*\/libz.1.3.1.dylib",
+    "name" : "libz.1.3.1.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4361732096,
+    "size" : 16384,
+    "uuid" : "a9a1f60f-7583-39d3-a297-0261ab644d52",
+    "path" : "\/Users\/USER\/*\/grp.cpython-313-darwin.so",
+    "name" : "grp.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4361814016,
+    "size" : 32768,
+    "uuid" : "3fb34940-232f-3caf-8874-3db0127c288f",
+    "path" : "\/Users\/USER\/*\/zlib.cpython-313-darwin.so",
+    "name" : "zlib.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4362764288,
+    "size" : 16384,
+    "uuid" : "76a38ded-6f7f-3448-b391-b861c05bc613",
+    "path" : "\/Users\/USER\/*\/_bz2.cpython-313-darwin.so",
+    "name" : "_bz2.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4364713984,
+    "size" : 81920,
+    "uuid" : "0f29847c-5689-38aa-a8fb-d9a99a2ae679",
+    "path" : "\/Users\/USER\/*\/libbz2.1.0.8.dylib",
+    "name" : "libbz2.1.0.8.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4362846208,
+    "size" : 32768,
+    "uuid" : "e58aebee-db57-3ea8-8ac0-db90b8cc4891",
+    "path" : "\/Users\/USER\/*\/_lzma.cpython-313-darwin.so",
+    "name" : "_lzma.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4365205504,
+    "size" : 163840,
+    "uuid" : "b7d6bfbd-e6e8-3f00-a381-9300a1b9a1b7",
+    "path" : "\/Users\/USER\/*\/liblzma.5.6.4.dylib",
+    "name" : "liblzma.5.6.4.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4362944512,
+    "size" : 16384,
+    "uuid" : "2201df59-539c-3bfe-8d7d-0e8ae3830b04",
+    "path" : "\/Users\/USER\/*\/_bisect.cpython-313-darwin.so",
+    "name" : "_bisect.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4364976128,
+    "size" : 16384,
+    "uuid" : "d469b9c2-8d32-3229-99a7-3cd76d807b41",
+    "path" : "\/Users\/USER\/*\/_random.cpython-313-darwin.so",
+    "name" : "_random.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4365058048,
+    "size" : 16384,
+    "uuid" : "459274dd-a45b-3025-8998-6c639fb2e8c6",
+    "path" : "\/Users\/USER\/*\/_opcode.cpython-313-darwin.so",
+    "name" : "_opcode.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4369465344,
+    "size" : 49152,
+    "uuid" : "8205cbdb-d051-31d1-aa6c-a5acbb4c89e4",
+    "path" : "\/Users\/USER\/*\/pyexpat.cpython-313-darwin.so",
+    "name" : "pyexpat.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4376559616,
+    "size" : 147456,
+    "uuid" : "3413c0ac-46b8-3ed5-8566-9004eb6d76f5",
+    "path" : "\/Users\/USER\/*\/libexpat.1.11.1.dylib",
+    "name" : "libexpat.1.11.1.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4369334272,
+    "size" : 32768,
+    "uuid" : "c111bf41-060b-37c2-b603-dd6cf6910508",
+    "path" : "\/Users\/USER\/*\/_hashlib.cpython-313-darwin.so",
+    "name" : "_hashlib.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4381376512,
+    "size" : 2441216,
+    "uuid" : "f0d21d4c-b131-3c61-a70a-9818293ce33b",
+    "path" : "\/Users\/USER\/*\/libcrypto.3.dylib",
+    "name" : "libcrypto.3.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4376346624,
+    "size" : 32768,
+    "uuid" : "a24885f6-98aa-37db-88b6-901eb31e1298",
+    "path" : "\/Users\/USER\/*\/_blake2.cpython-313-darwin.so",
+    "name" : "_blake2.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4377968640,
+    "size" : 65536,
+    "uuid" : "9acf54ac-7246-31a2-9816-1969c152e2ec",
+    "path" : "\/Users\/USER\/*\/_socket.cpython-313-darwin.so",
+    "name" : "_socket.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4377821184,
+    "size" : 49152,
+    "uuid" : "7410a056-b055-3b04-9835-f9559d270c55",
+    "path" : "\/Users\/USER\/*\/array.cpython-313-darwin.so",
+    "name" : "array.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4378345472,
+    "size" : 114688,
+    "uuid" : "eb5cb2ca-9353-388b-a523-1b769b399f1a",
+    "path" : "\/Users\/USER\/*\/_ssl.cpython-313-darwin.so",
+    "name" : "_ssl.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4385538048,
+    "size" : 393216,
+    "uuid" : "f8092719-e028-398f-ae67-1ac5748d3c91",
+    "path" : "\/Users\/USER\/*\/libssl.3.dylib",
+    "name" : "libssl.3.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4376444928,
+    "size" : 16384,
+    "uuid" : "6940ba33-965a-3f13-9ed8-689d3e1fc189",
+    "path" : "\/Users\/USER\/*\/_scproxy.cpython-313-darwin.so",
+    "name" : "_scproxy.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 4385423360,
+    "size" : 49152,
+    "uuid" : "690edff1-56be-3018-bec2-9f63287ceb2d",
+    "path" : "\/usr\/lib\/libobjc-trampolines.dylib",
+    "name" : "libobjc-trampolines.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4669194240,
+    "size" : 65536,
+    "uuid" : "383dc829-9399-3d7e-b00d-92a001a9abde",
+    "path" : "\/Users\/USER\/*\/_freetype.cpython-313-darwin.so",
+    "name" : "_freetype.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4670291968,
+    "size" : 671744,
+    "uuid" : "37e3720d-6b1c-3701-8f72-358ecbbf3ecc",
+    "path" : "\/Users\/USER\/*\/libfreetype.6.dylib",
+    "name" : "libfreetype.6.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4669341696,
+    "size" : 49152,
+    "uuid" : "2c237280-f81e-3504-b019-57e0a3fd17b0",
+    "path" : "\/Users\/USER\/*\/libbrotlidec.1.0.9.dylib",
+    "name" : "libbrotlidec.1.0.9.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4669652992,
+    "size" : 131072,
+    "uuid" : "7642f259-7812-37ba-af1e-1833e0df72dd",
+    "path" : "\/Users\/USER\/*\/libbrotlicommon.1.0.9.dylib",
+    "name" : "libbrotlicommon.1.0.9.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 4692344832,
+    "CFBundleShortVersionString" : "1.14",
+    "CFBundleIdentifier" : "com.apple.audio.units.Components",
+    "size" : 1294336,
+    "uuid" : "724b28c1-873e-3674-95de-a03f6714128f",
+    "path" : "\/System\/Library\/Components\/CoreAudio.component\/Contents\/MacOS\/CoreAudio",
+    "name" : "CoreAudio",
+    "CFBundleVersion" : "1.14"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 4913577984,
+    "CFBundleShortVersionString" : "1.0",
+    "CFBundleIdentifier" : "com.apple.audio.AudioDSPComponents",
+    "size" : 7749632,
+    "uuid" : "36edc68b-1240-36b0-b344-fff4d7cbcafe",
+    "path" : "\/System\/Library\/Components\/AudioDSP.component\/Contents\/MacOS\/AudioDSP",
+    "name" : "AudioDSP",
+    "CFBundleVersion" : "1"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 5117050880,
+    "CFBundleShortVersionString" : "353.14",
+    "CFBundleIdentifier" : "com.apple.AGXMetalG16G-B0",
+    "size" : 8880128,
+    "uuid" : "9b0a2398-8610-35d6-b7f3-b76933f2aaf4",
+    "path" : "\/System\/Library\/Extensions\/AGXMetalG16G_B0.bundle\/Contents\/MacOS\/AGXMetalG16G_B0",
+    "name" : "AGXMetalG16G_B0",
+    "CFBundleVersion" : "353.14"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4942708736,
+    "size" : 32768,
+    "uuid" : "899eec37-eab4-30e7-9442-cc148127d1e4",
+    "path" : "\/Users\/USER\/*\/_json.cpython-313-darwin.so",
+    "name" : "_json.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4694048768,
+    "size" : 32768,
+    "uuid" : "5aff5855-5cd6-33ed-8bf8-7ce00cf4a349",
+    "path" : "\/Users\/USER\/*\/sdl2.cpython-313-darwin.so",
+    "name" : "sdl2.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4937449472,
+    "size" : 147456,
+    "uuid" : "92ed2d9b-df58-3fd0-95b2-8caf81cdcd70",
+    "path" : "\/Users\/USER\/*\/audio.cpython-313-darwin.so",
+    "name" : "audio.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4938055680,
+    "size" : 212992,
+    "uuid" : "9603b5e9-19c6-3bd7-97e3-5817d43a6c5d",
+    "path" : "\/Users\/USER\/*\/video.cpython-313-darwin.so",
+    "name" : "video.cpython-313-darwin.so"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6557532160,
+    "size" : 734464,
+    "uuid" : "74e52480-c2bd-3c8d-812d-95fe2b74a096",
+    "path" : "\/usr\/lib\/dyld",
+    "name" : "dyld"
+  },
+  {
+    "size" : 0,
+    "source" : "A",
+    "base" : 0,
+    "uuid" : "00000000-0000-0000-0000-000000000000"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6561669120,
+    "size" : 35172,
+    "uuid" : "edb83a19-ec17-32de-9350-6145970a85d6",
+    "path" : "\/usr\/lib\/system\/libsystem_platform.dylib",
+    "name" : "libsystem_platform.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6561361920,
+    "size" : 250600,
+    "uuid" : "c6a4a4cb-92e6-3baf-aae0-e8306259209a",
+    "path" : "\/usr\/lib\/system\/libsystem_kernel.dylib",
+    "name" : "libsystem_kernel.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6561615872,
+    "size" : 52028,
+    "uuid" : "a373f0b0-9880-326a-88b4-dd8be4e33072",
+    "path" : "\/usr\/lib\/system\/libsystem_pthread.dylib",
+    "name" : "libsystem_pthread.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6561902592,
+    "CFBundleShortVersionString" : "6.9",
+    "CFBundleIdentifier" : "com.apple.CoreFoundation",
+    "size" : 5629376,
+    "uuid" : "9b672762-7b1f-30bc-96de-f176b372d66d",
+    "path" : "\/System\/Library\/Frameworks\/CoreFoundation.framework\/Versions\/A\/CoreFoundation",
+    "name" : "CoreFoundation",
+    "CFBundleVersion" : "5026.6.7"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6633705472,
+    "CFBundleShortVersionString" : "6.9",
+    "CFBundleIdentifier" : "com.apple.AppKit",
+    "size" : 24261792,
+    "uuid" : "b6b4bdad-6428-3e64-8747-275700109b46",
+    "path" : "\/System\/Library\/Frameworks\/AppKit.framework\/Versions\/C\/AppKit",
+    "name" : "AppKit",
+    "CFBundleVersion" : "2685.70.101"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6772727808,
+    "CFBundleShortVersionString" : "1.0",
+    "CFBundleIdentifier" : "com.apple.audio.caulk",
+    "size" : 168064,
+    "uuid" : "ad0b0769-76d4-3613-bae4-dbbbe05f7e3e",
+    "path" : "\/System\/Library\/PrivateFrameworks\/caulk.framework\/Versions\/A\/caulk",
+    "name" : "caulk"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6870024192,
+    "size" : 152080,
+    "uuid" : "75f77fec-be14-3c97-93da-403c3b529d3b",
+    "path" : "\/usr\/lib\/libAudioToolboxUtility.dylib",
+    "name" : "libAudioToolboxUtility.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6895071232,
+    "CFBundleShortVersionString" : "1.14",
+    "CFBundleIdentifier" : "com.apple.audio.toolbox.AudioToolbox",
+    "size" : 1921120,
+    "uuid" : "e8618176-515c-39a6-9f9c-3887a723c463",
+    "path" : "\/System\/Library\/Frameworks\/AudioToolbox.framework\/Versions\/A\/AudioToolbox",
+    "name" : "AudioToolbox",
+    "CFBundleVersion" : "1.14"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6613352448,
+    "CFBundleShortVersionString" : "5.0",
+    "CFBundleIdentifier" : "com.apple.audio.CoreAudio",
+    "size" : 7953952,
+    "uuid" : "d13ab14d-2b45-34d0-86de-38df75bf48e5",
+    "path" : "\/System\/Library\/Frameworks\/CoreAudio.framework\/Versions\/A\/CoreAudio",
+    "name" : "CoreAudio",
+    "CFBundleVersion" : "5.0"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6559817728,
+    "size" : 291392,
+    "uuid" : "b2000cd5-f580-314a-a141-e036719d854e",
+    "path" : "\/usr\/lib\/system\/libdispatch.dylib",
+    "name" : "libdispatch.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64e",
+    "base" : 6670635008,
+    "CFBundleShortVersionString" : "1.600.0",
+    "CFBundleIdentifier" : "com.apple.SkyLight",
+    "size" : 5990944,
+    "uuid" : "0c8f41c6-6d93-3db3-b522-ca8cff5c3b33",
+    "path" : "\/System\/Library\/PrivateFrameworks\/SkyLight.framework\/Versions\/A\/SkyLight",
+    "name" : "SkyLight"
+  }
+],
+  "sharedCache" : {
+  "base" : 6556401664,
+  "size" : 6010847232,
+  "uuid" : "f2e86c53-6052-388b-ba71-5a0c9b569413"
+},
+  "legacyInfo" : {
+  "threadTriggered" : {
+    "queue" : "com.apple.main-thread"
+  }
+},
+  "logWritingSignature" : "b25d13f5b51617b29ea2748fb1946e5ab8a79aa1",
+  "roots_installed" : 0,
+  "bug_type" : "309",
+  "trmStatus" : 8192,
+  "trialInfo" : {
+  "rollouts" : [
+    {
+      "rolloutId" : "645eb1d0417dab722a215927",
+      "factorPackIds" : [
+
+      ],
+      "deploymentId" : 240000005
+    },
+    {
+      "rolloutId" : "695fd05d8ca5554688521e5e",
+      "factorPackIds" : [
+        "695fd08781fcd20ded79c1d3",
+        "695fd0d28ca5554688521e5f",
+        "695fd09c8774dc09015a80e9",
+        "695fd0b18774dc09015a80ea"
+      ],
+      "deploymentId" : 3
+    }
+  ],
+  "experiments" : [
+
+  ]
+}
+}
+
+Model: Mac16,10, BootROM 18000.161.10, proc 10:4:6:0 processors, 16 GB, SMC 
+Graphics: Apple M4, Apple M4, Built-In
+Display: DELL P2723QE, 3840 x 2160 (2160p/4K UHD 1 - Ultra High Definition), Main, MirrorOff, Online
+Memory Module: LPDDR5, Micron
+AirPort: spairport_wireless_card_type_wifi (0x14E4, 0x4388), wl0: Jul 10 2026 02:27:19 version 23.50.20.2.41.51.209 FWID 01-446b83ed
+IO80211_driverkit-1566.5 "IO80211_driverkit-1566.5" Jul 31 2026 19:08:25
+AirPort: 
+Bluetooth: Version (null), 0 services, 0 devices, 0 incoming serial ports
+Network Service: Wi-Fi, AirPort, en1
+Thunderbolt Bus: Mac mini, Apple Inc.
+Thunderbolt Bus: Mac mini, Apple Inc.
+Thunderbolt Bus: Mac mini, Apple Inc.

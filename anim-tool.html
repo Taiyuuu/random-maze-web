@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sprite Sheet Frame Organizer & Resizer</title>
+    <!-- Include JSZip for single-file archive export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e2f;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 { margin-bottom: 10px; }
+        .controls {
+            background: #2a2a40;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .workspace {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            align-items: flex-start;
+        }
+        .sidebar {
+            flex: 1;
+            background: #2a2a40;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+        .preview-area {
+            flex: 2;
+            background: #2a2a40;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .frame-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .frame-card {
+            background: #3b3b58;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            padding: 5px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+        }
+        .frame-card.selected { border-color: #4CAF50; }
+        .frame-card canvas {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            background: #111;
+            border-radius: 4px;
+        }
+        .canvas-container {
+            width: 300px;
+            height: 300px;
+            background: #111;
+            border: 2px dashed #555;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+            margin-bottom: 15px;
+        }
+        .canvas-container:active { cursor: grabbing; }
+        .canvas-container canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        button, input, label {
+            font-size: 14px;
+        }
+        button {
+            padding: 8px 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background: #45a049; }
+        input[type="number"] { width: 70px; background: #111; color: white; border: 1px solid #555; padding: 5px; }
+        .settings-group { display: flex; align-items: center; gap: 8px; }
+    </style>
+</head>
+<body>
+
+    <h1>Animation Frame Organizer & Resizer</h1>
+    <p>Upload all frames, reorder them, adjust position, and export as a single ZIP archive.</p>
+
+    <div class="controls">
+        <input type="file" id="upload" multiple accept="image/*">
+        <div class="settings-group">
+            <label>Width:</label>
+            <input type="number" id="boxWidth" value="128">
+        </div>
+        <div class="settings-group">
+            <label>Height:</label>
+            <input type="number" id="boxHeight" value="128">
+        </div>
+        <button id="gridBtn">Toggle Reference Grid: OFF</button>
+        <button id="stackBtn">Toggle Stack View: OFF</button>
+        <button id="exportBtn">Export All as ZIP</button>
+    </div>
+
+    <div class="workspace">
+        <div class="sidebar">
+            <h3>Frames (<span id="frameCount">0</span>)</h3>
+            <div id="frameGrid" class="frame-grid"></div>
+        </div>
+
+        <div class="preview-area">
+            <h3 id="previewTitle">Editing Frame: None</h3>
+            <p style="font-size: 12px; color: #aaa;">Click and drag inside the box to pan/adjust the frame offset.</p>
+            <div class="canvas-container" id="canvasContainer">
+                <canvas id="previewCanvas"></canvas>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button id="prevBtn">← Prev Frame</button>
+                <button id="nextBtn">Next Frame →</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    let frames = []; // Array of { img, offsetX, offsetY }
+    let currentIndex = 0;
+    let isStacked = false;
+    let showGrid = false;
+    let isDragging = false;
+    let startX, startY;
+
+    const uploadInput = document.getElementById('upload');
+    const frameGrid = document.getElementById('frameGrid');
+    const previewCanvas = document.getElementById('previewCanvas');
+    const ctx = previewCanvas.getContext('2d');
+    const canvasContainer = document.getElementById('canvasContainer');
+    const boxWidthInput = document.getElementById('boxWidth');
+    const boxHeightInput = document.getElementById('boxHeight');
+    const previewTitle = document.getElementById('previewTitle');
+    const gridBtn = document.getElementById('gridBtn');
+    const frameCountSpan = document.getElementById('frameCount');
+
+    uploadInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        let loadedCount = 0;
+        files.forEach((file) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    frames.push({
+                        img: img,
+                        offsetX: (parseInt(boxWidthInput.value) - img.width) / 2,
+                        offsetY: (parseInt(boxHeightInput.value) - img.height) / 2
+                    });
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        updateUI();
+                    }
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+    function updateCanvasSize() {
+        previewCanvas.width = parseInt(boxWidthInput.value);
+        previewCanvas.height = parseInt(boxHeightInput.value);
+        canvasContainer.style.width = boxWidthInput.value + 'px';
+        canvasContainer.style.height = boxHeightInput.value + 'px';
+        render();
+    }
+
+    boxWidthInput.addEventListener('input', updateCanvasSize);
+    boxHeightInput.addEventListener('input', updateCanvasSize);
+
+    function drawReferenceGrid(w, h) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(76, 175, 80, 0.4)';
+        ctx.lineWidth = 1;
+
+        ctx.beginPath();
+        ctx.moveTo(w / 4, 0); ctx.lineTo(w / 4, h);
+        ctx.moveTo((w / 4) * 3, 0); ctx.lineTo((w / 4) * 3, h);
+        ctx.moveTo(0, h / 4); ctx.lineTo(w, h / 4);
+        ctx.moveTo(0, (h / 4) * 3); ctx.lineTo(w, (h / 4) * 3);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(w / 2, 0); ctx.lineTo(w / 2, h);
+        ctx.moveTo(0, h / 2); ctx.lineTo(w, h / 2);
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+    function render() {
+        const w = parseInt(boxWidthInput.value);
+        const h = parseInt(boxHeightInput.value);
+        ctx.clearRect(0, 0, w, h);
+
+        if (frames.length === 0) return;
+
+        if (isStacked) {
+            previewTitle.textContent = "Stack View (All Frames Overlayed)";
+            frames.forEach((f, idx) => {
+                ctx.globalAlpha = (idx === currentIndex) ? 1.0 : 0.3;
+                ctx.drawImage(f.img, f.offsetX, f.offsetY);
+            });
+            ctx.globalAlpha = 1.0;
+        } else {
+            previewTitle.textContent = `Editing Frame ${currentIndex + 1} of ${frames.length}`;
+            const current = frames[currentIndex];
+            ctx.drawImage(current.img, current.offsetX, current.offsetY);
+        }
+
+        if (showGrid) {
+            drawReferenceGrid(w, h);
+        }
+    }
+
+    function renderGrid() {
+        frameGrid.innerHTML = '';
+        frameCountSpan.textContent = frames.length;
+        frames.forEach((f, idx) => {
+            const card = document.createElement('div');
+            card.className = `frame-card ${idx === currentIndex ? 'selected' : ''}`;
+            card.innerHTML = `<span>#${idx + 1}</span><br>`;
+            
+            const thumbCanvas = document.createElement('canvas');
+            thumbCanvas.width = 50;
+            thumbCanvas.height = 50;
+            const tCtx = thumbCanvas.getContext('2d');
+            tCtx.drawImage(f.img, 0, 0, 50, 50);
+            
+            card.appendChild(thumbCanvas);
+            
+            card.addEventListener('click', () => {
+                currentIndex = idx;
+                isStacked = false;
+                renderGrid();
+                render();
+            });
+
+            frameGrid.appendChild(card);
+        });
+    }
+
+    function updateUI() {
+        renderGrid();
+        updateCanvasSize();
+    }
+
+    canvasContainer.addEventListener('mousedown', (e) => {
+        if (isStacked || frames.length === 0) return;
+        isDragging = true;
+        startX = e.clientX - frames[currentIndex].offsetX;
+        startY = e.clientY - frames[currentIndex].offsetY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging || frames.length === 0) return;
+        frames[currentIndex].offsetX = e.clientX - startX;
+        frames[currentIndex].offsetY = e.clientY - startY;
+        render();
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        if (frames.length === 0) return;
+        currentIndex = (currentIndex - 1 + frames.length) % frames.length;
+        renderGrid();
+        render();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        if (frames.length === 0) return;
+        currentIndex = (currentIndex + 1) % frames.length;
+        renderGrid();
+        render();
+    });
+
+    gridBtn.addEventListener('click', () => {
+        showGrid = !showGrid;
+        gridBtn.textContent = `Toggle Reference Grid: ${showGrid ? 'ON' : 'OFF'}`;
+        render();
+    });
+
+    document.getElementById('stackBtn').addEventListener('click', () => {
+        isStacked = !isStacked;
+        document.getElementById('stackBtn').textContent = `Toggle Stack View: ${isStacked ? 'ON' : 'OFF'}`;
+        render();
+    });
+
+    // Export Processed Frames as a ZIP archive
+    document.getElementById('exportBtn').addEventListener('click', async () => {
+        if (frames.length === 0) return;
+        const w = parseInt(boxWidthInput.value);
+        const h = parseInt(boxHeightInput.value);
+        const zip = new JSZip();
+
+        frames.forEach((f, idx) => {
+            const exportCanvas = document.createElement('canvas');
+            exportCanvas.width = w;
+            exportCanvas.height = h;
+            const eCtx = exportCanvas.getContext('2d');
+            eCtx.drawImage(f.img, f.offsetX, f.offsetY);
+
+            // Convert canvas to base64 data string
+            const dataUrl = exportCanvas.toDataURL('image/png');
+            const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
+            
+            // Add file to zip
+            const filename = `frame_${String(idx + 1).padStart(2, '0')}.png`;
+            zip.file(filename, base64Data, { base64: true });
+        });
+
+        // Generate zip and trigger download
+        const content = await zip.generateAsync({ type: "blob" });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = "animation_frames.zip";
+        link.click();
+    });
+</script>
+
+</body>
+</html>

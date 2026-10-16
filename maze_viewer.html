@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maze Save Viewer</title>
+  <style>
+    :root {
+      --bg: #121826;
+      --panel: #1b2435;
+      --panel-2: #222d40;
+      --text: #edf3ff;
+      --muted: #a8b5cf;
+      --accent: #58a6ff;
+      --path: #7be495;
+      --start: #ffd166;
+      --end: #ff6b6b;
+      --wall: #dfe9ff;
+      --empty: #2a3041;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0d1320 0%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .panel {
+      width: min(1100px, 100%);
+      background: rgba(27, 36, 53, 0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      padding: 20px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    input[type="file"] {
+      color: var(--text);
+      background: var(--panel-2);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #08111d;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 10px 16px;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 8px 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .canvas-wrap {
+      overflow: auto;
+      border-radius: 12px;
+      background: #0d1420;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 12px;
+    }
+
+    canvas {
+      display: block;
+      background: var(--empty);
+      border-radius: 8px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .status {
+      margin-top: 14px;
+      min-height: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <div class="toolbar">
+      <input id="fileInput" type="file" accept=".json,application/json" />
+      <button id="loadSampleBtn" type="button">Load saved_maze.json</button>
+    </div>
+
+    <div class="stats">
+      <div id="mazeInfo">No maze loaded</div>
+      <div id="pathInfo">Shortest path: —</div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="mazeCanvas" width="800" height="800"></canvas>
+    </div>
+
+    <div class="status" id="statusText">Choose a maze save file or load the saved file from the project folder.</div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const loadSampleBtn = document.getElementById('loadSampleBtn');
+    const canvas = document.getElementById('mazeCanvas');
+    const ctx = canvas.getContext('2d');
+    const statusText = document.getElementById('statusText');
+    const mazeInfo = document.getElementById('mazeInfo');
+    const pathInfo = document.getElementById('pathInfo');
+
+    let currentMaze = null;
+    let currentPath = [];
+
+    function setStatus(msg) {
+      statusText.textContent = msg;
+    }
+
+    function clamp(n, min, max) {
+      return Math.min(Math.max(n, min), max);
+    }
+
+    function validateMaze(data) {
+      if (!data || typeof data !== 'object') {
+        throw new Error('Maze file is not a valid JSON object.');
+      }
+      const cols = Number(data.cols);
+      const rows = Number(data.rows);
+      const walls = data.walls;
+
+      if (!Number.isInteger(cols) || !Number.isInteger(rows) || cols <= 0 || rows <= 0) {
+        throw new Error('Maze dimensions are invalid.');
+      }
+      if (!Array.isArray(walls) || walls.length !== cols) {
+        throw new Error('Maze wall grid width is invalid.');
+      }
+
+      for (let c = 0; c < cols; c++) {
+        if (!Array.isArray(walls[c]) || walls[c].length !== rows) {
+          throw new Error(`Maze wall grid row count invalid at column ${c}.`);
+        }
+        for (let r = 0; r < rows; r++) {
+          const cell = walls[c][r];
+          if (!cell || typeof cell !== 'object') {
+            throw new Error(`Cell at (${c}, ${r}) is invalid.`);
+          }
+          for (const dir of ['N', 'E', 'S', 'W']) {
+            if (typeof cell[dir] !== 'boolean') {
+              throw new Error(`Wall value for cell (${c}, ${r}) direction ${dir} is invalid.`);
+            }
+          }
+        }
+      }
+
+      return { cols, rows, walls };
+    }
+
+    function wallOpen(cell, dir) {
+      return !cell[dir];
+    }
+
+    function shortestPath(mazeData) {
+      const { cols, rows, walls } = mazeData;
+      const start = { x: 0, y: 0 };
+      const end = { x: cols - 1, y: rows - 1 };
+      const queue = [{ x: 0, y: 0 }];
+      const visited = new Set([`0,0`]);
+      const cameFrom = new Map();
+
+      while (queue.length > 0) {
+        const current = queue.shift();
+        if (current.x === end.x && current.y === end.y) {
+          break;
+        }
+
+        const cell = walls[current.x][current.y];
+        const neighbors = [
+          { x: current.x, y: current.y - 1, dir: 'N', opposite: 'S' },
+          { x: current.x + 1, y: current.y, dir: 'E', opposite: 'W' },
+          { x: current.x, y: current.y + 1, dir: 'S', opposite: 'N' },
+          { x: current.x - 1, y: current.y, dir: 'W', opposite: 'E' }
+        ];
+
+        for (const next of neighbors) {
+          if (next.x < 0 || next.y < 0 || next.x >= cols || next.y >= rows) continue;
+          const nextCell = walls[next.x][next.y];
+          if (!nextCell || !wallOpen(cell, next.dir) || !wallOpen(nextCell, next.opposite)) continue;
+
+          const key = `${next.x},${next.y}`;
+          if (visited.has(key)) continue;
+          visited.add(key);
+          cameFrom.set(key, { x: current.x, y: current.y });
+          queue.push({ x: next.x, y: next.y });
+        }
+      }
+
+      const path = [];
+      let current = end;
+      const endKey = `${end.x},${end.y}`;
+      if (!visited.has(endKey)) {
+        return [];
+      }
+
+      while (current.x !== start.x || current.y !== start.y) {
+        path.push({ x: current.x, y: current.y });
+        const prev = cameFrom.get(`${current.x},${current.y}`);
+        if (!prev) break;
+        current = prev;
+      }
+      path.push({ x: start.x, y: start.y });
+      path.reverse();
+      return path;
+    }
+
+    function renderMaze(data, path) {
+      const { cols, rows, walls } = data;
+      const padding = 20;
+      const canvasPadding = 18;
+      const cellSize = clamp(Math.floor((Math.min(canvas.width, canvas.height) - canvasPadding * 2) / Math.max(cols, rows)), 10, 60);
+
+      canvas.width = Math.max(400, cols * cellSize + padding * 2);
+      canvas.height = Math.max(400, rows * cellSize + padding * 2);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#1a2230';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const originX = padding;
+      const originY = padding;
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x0 = originX + c * cellSize;
+          const y0 = originY + r * cellSize;
+          const cell = walls[c][r];
+
+          ctx.fillStyle = '#2b3345';
+          ctx.fillRect(x0, y0, cellSize, cellSize);
+
+          if (c === 0 && r === 0) {
+            ctx.fillStyle = '#ffd166';
+            ctx.beginPath();
+            ctx.arc(x0 + cellSize / 2, y0 + cellSize / 2, cellSize * 0.22, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          if (c === cols - 1 && r === rows - 1) {
+            ctx.fillStyle = '#ff6b6b';
+            ctx.beginPath();
+            ctx.arc(x0 + cellSize / 2, y0 + cellSize / 2, cellSize * 0.22, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          ctx.strokeStyle = '#dfe9ff';
+          ctx.lineWidth = 2;
+
+          if (cell.N) {
+            ctx.beginPath();
+            ctx.moveTo(x0, y0);
+            ctx.lineTo(x0 + cellSize, y0);
+            ctx.stroke();
+          }
+          if (cell.E) {
+            ctx.beginPath();
+            ctx.moveTo(x0 + cellSize, y0);
+            ctx.lineTo(x0 + cellSize, y0 + cellSize);
+            ctx.stroke();
+          }
+          if (cell.S) {
+            ctx.beginPath();
+            ctx.moveTo(x0, y0 + cellSize);
+            ctx.lineTo(x0 + cellSize, y0 + cellSize);
+            ctx.stroke();
+          }
+          if (cell.W) {
+            ctx.beginPath();
+            ctx.moveTo(x0, y0);
+            ctx.lineTo(x0, y0 + cellSize);
+            ctx.stroke();
+          }
+        }
+      }
+
+      if (path.length > 1) {
+        ctx.beginPath();
+        ctx.strokeStyle = '#7be495';
+        ctx.lineWidth = Math.max(2, cellSize * 0.18);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        for (let i = 0; i < path.length; i++) {
+          const p = path[i];
+          const cx = originX + (p.x + 0.5) * cellSize;
+          const cy = originY + (p.y + 0.5) * cellSize;
+          if (i === 0) {
+            ctx.moveTo(cx, cy);
+          } else {
+            ctx.lineTo(cx, cy);
+          }
+        }
+        ctx.stroke();
+      }
+    }
+
+    function processMaze(data) {
+      currentMaze = validateMaze(data);
+      currentPath = shortestPath(currentMaze);
+
+      renderMaze(currentMaze, currentPath);
+
+      mazeInfo.textContent = `Maze: ${currentMaze.cols} × ${currentMaze.rows} cells`;
+      pathInfo.textContent = currentPath.length
+        ? `Shortest path: ${currentPath.length - 1} steps`
+        : 'Shortest path: no path found';
+      setStatus('Maze loaded successfully.');
+    }
+
+    fileInput.addEventListener('change', async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      try {
+        const text = await file.text();
+        const parsed = JSON.parse(text);
+        processMaze(parsed);
+      } catch (err) {
+        console.error(err);
+        setStatus(`Could not load maze: ${err.message}`);
+      }
+    });
+
+    loadSampleBtn.addEventListener('click', async () => {
+      try {
+        const response = await fetch('./saved_maze.json');
+        if (!response.ok) {
+          throw new Error('saved_maze.json not found in the same folder as this page.');
+        }
+        const data = await response.json();
+        processMaze(data);
+      } catch (err) {
+        console.error(err);
+        setStatus(`${err.message} Use the file picker to select a maze save file.`);
+      }
+    });
+  </script>
+</body>
+</html>

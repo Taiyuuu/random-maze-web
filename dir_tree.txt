@@ -1,0 +1,307 @@
+Maze
+├── __pycache__
+│   │── audio.cpython-313.pyc
+│   │── boss.cpython-313.pyc
+│   │── commands.cpython-313.pyc
+│   │── console.cpython-313.pyc
+│   │── enemy.cpython-313.pyc
+│   │── maze.cpython-313.pyc
+│   │── mckPy.cpython-313.pyc
+│   │── player.cpython-313.pyc
+│   │── rendering.cpython-313.pyc
+│   │── settings_io.cpython-313.pyc
+│   └── ui.cpython-313.pyc
+├── audio
+│   │── boss_dying.mp3
+│   │── boss_explode_clean.mp3
+│   │── boss_explode.mp3
+│   │── boss_final_hit.mp3
+│   │── boss_land.mp3
+│   │── boss_stun.mp3
+│   │── boss_suspence.mp3
+│   │── boss1_flame_loop.mp3
+│   │── boss1_flame_outburst.mp3
+│   │── boss1_music_end.mp3
+│   │── boss1_music.mp3
+│   │── boss1_smash1.mp3
+│   │── boss1_smash2.mp3
+│   │── boss3_transition.mp3
+│   │── circular_slash.mp3
+│   │── enemy_damage.mp3
+│   │── enemy_game.mp3
+│   │── enemy_hazard.mp3
+│   │── footstep.mp3
+│   │── heal.mp3
+│   │── heartbeat1.mp3
+│   │── heartbeat2.mp3
+│   │── heartbeat3.mp3
+│   │── home.mp3
+│   │── lunge.mp3
+│   │── parry.mp3
+│   │── player_damage.mp3
+│   │── player_death.mp3
+│   │── projectile.mp3
+│   │── reg_game.mp3
+│   │── save.mp3
+│   │── slash_rejected.mp3
+│   │── slash1.mp3
+│   │── slash2.mp3
+│   │── slash3.mp3
+│   │── spit.mp3
+│   │── ui_button_click.mp3
+│   │── ui_change_selection.mp3
+│   └── ui_option_click.mp3
+├── past_versions_single_file
+│   │── 1.py
+│   │── 2.py
+│   │── 3.py
+│   │── 4.py
+│   │── 5.py
+│   │── 6.py
+│   └── 7.py
+├── tiles
+│   ├── autumn
+│   │   │── 3_e.png
+│   │   │── 3_n.png
+│   │   │── 3_s.png
+│   │   │── 3_w.png
+│   │   │── 4.png
+│   │   │── boss_entrance.png
+│   │   │── dirt.png
+│   │   │── e.png
+│   │   │── grass.png
+│   │   │── n.png
+│   │   │── ne_.png
+│   │   │── ne.png
+│   │   │── ns.png
+│   │   │── nw_.png
+│   │   │── nw.png
+│   │   │── s.png
+│   │   │── se_.png
+│   │   │── se.png
+│   │   │── sw_.png
+│   │   │── sw.png
+│   │   │── w.png
+│   │   │── wall_e.png
+│   │   │── wall_n.png
+│   │   │── wall_s.png
+│   │   │── wall_w.png
+│   │   └── we.png
+│   ├── default
+│   │   │── 3_e.png
+│   │   │── 3_n.png
+│   │   │── 3_s.png
+│   │   │── 3_w.png
+│   │   │── 4.png
+│   │   │── boss_entrance.png
+│   │   │── dirt.png
+│   │   │── e.png
+│   │   │── grass.png
+│   │   │── n.png
+│   │   │── ne_.png
+│   │   │── ne.png
+│   │   │── ns.png
+│   │   │── nw_.png
+│   │   │── nw.png
+│   │   │── s.png
+│   │   │── se_.png
+│   │   │── se.png
+│   │   │── sw_.png
+│   │   │── sw.png
+│   │   │── w.png
+│   │   │── wall_e.png
+│   │   │── wall_n.png
+│   │   │── wall_s.png
+│   │   │── wall_w.png
+│   │   └── we.png
+│   ├── spring
+│   │   │── 3_e.png
+│   │   │── 3_n.png
+│   │   │── 3_s.png
+│   │   │── 3_w.png
+│   │   │── 4.png
+│   │   │── boss_entrance.png
+│   │   │── dirt.png
+│   │   │── e.png
+│   │   │── grass.png
+│   │   │── n.png
+│   │   │── ne_.png
+│   │   │── ne.png
+│   │   │── ns.png
+│   │   │── nw_.png
+│   │   │── nw.png
+│   │   │── s.png
+│   │   │── se_.png
+│   │   │── se.png
+│   │   │── sw_.png
+│   │   │── sw.png
+│   │   │── w.png
+│   │   │── wall_e.png
+│   │   │── wall_n.png
+│   │   │── wall_s.png
+│   │   │── wall_w.png
+│   │   └── we.png
+│   ├── summer
+│   │   │── 3_e.png
+│   │   │── 3_n.png
+│   │   │── 3_s.png
+│   │   │── 3_w.png
+│   │   │── 4.png
+│   │   │── boss_entrance.png
+│   │   │── dirt.png
+│   │   │── e.png
+│   │   │── grass.png
+│   │   │── n.png
+│   │   │── ne_.png
+│   │   │── ne.png
+│   │   │── ns.png
+│   │   │── nw_.png
+│   │   │── nw.png
+│   │   │── s.png
+│   │   │── se_.png
+│   │   │── se.png
+│   │   │── sw_.png
+│   │   │── sw.png
+│   │   │── w.png
+│   │   │── wall_e.png
+│   │   │── wall_n.png
+│   │   │── wall_s.png
+│   │   │── wall_w.png
+│   │   └── we.png
+│   └── winter
+│       │── 3_e.png
+│       │── 3_n.png
+│       │── 3_s.png
+│       │── 3_w.png
+│       │── 4.png
+│       │── boss_entrance.png
+│       │── dirt.png
+│       │── e.png
+│       │── grass.png
+│       │── n.png
+│       │── ne_.png
+│       │── ne.png
+│       │── ns.png
+│       │── nw_.png
+│       │── nw.png
+│       │── s.png
+│       │── se_.png
+│       │── se.png
+│       │── sw_.png
+│       │── sw.png
+│       │── w.png
+│       │── wall_e.png
+│       │── wall_n.png
+│       │── wall_s.png
+│       │── wall_w.png
+│       └── we.png
+├── tiles_old
+│   │── 3_e.png
+│   │── 3_n.png
+│   │── 3_s.png
+│   │── 3_w.png
+│   │── 4.png
+│   │── dirt.png
+│   │── e.png
+│   │── grass.png
+│   │── n.png
+│   │── ne_.png
+│   │── ne.png
+│   │── ns.png
+│   │── nw_.png
+│   │── nw.png
+│   │── path_tiles_5120x5120.png
+│   │── s.png
+│   │── se_.png
+│   │── se.png
+│   │── sw_.png
+│   │── sw.png
+│   │── w.png
+│   │── wall_e.png
+│   │── wall_n.png
+│   │── wall_s.png
+│   │── wall_w.png
+│   └── we.png
+├── ui
+│   │── 1fleur1.png
+│   │── 1fleur2.png
+│   │── 1fleur3.png
+│   │── 1fleur4.png
+│   │── 1fleur5.png
+│   │── 1fleur6.png
+│   │── 1fleur7.png
+│   │── 1fleur8.png
+│   │── 1fleur9.png
+│   │── 2fleur1.png
+│   │── 2fleur2.png
+│   │── 2fleur3.png
+│   │── 2fleur4.png
+│   │── 2fleur5.png
+│   │── 2fleur6.png
+│   │── 2fleur7.png
+│   │── 2fleur8.png
+│   │── 2fleur9.png
+│   │── 3fleur1.png
+│   │── 3fleur2.png
+│   │── 3fleur3.png
+│   │── 3fleur4.png
+│   │── 3fleur5.png
+│   │── 3fleur6.png
+│   │── 3fleur7.png
+│   │── 3fleur8.png
+│   │── 3fleur9.png
+│   │── 4fleur1.png
+│   │── 4fleur10.png
+│   │── 4fleur11.png
+│   │── 4fleur12.png
+│   │── 4fleur13.png
+│   │── 4fleur14.png
+│   │── 4fleur15.png
+│   │── 4fleur2.png
+│   │── 4fleur3.png
+│   │── 4fleur4.png
+│   │── 4fleur5.png
+│   │── 4fleur6.png
+│   │── 4fleur7.png
+│   │── 4fleur8.png
+│   │── 4fleur9.png
+│   │── 5fleur1.png
+│   │── 5fleur2.png
+│   │── 5fleur3.png
+│   │── 5fleur4.png
+│   │── 5fleur5.png
+│   │── button_arrow1.png
+│   │── button_arrow10.png
+│   │── button_arrow11.png
+│   │── button_arrow2.png
+│   │── button_arrow3.png
+│   │── button_arrow4.png
+│   │── button_arrow5.png
+│   │── button_arrow6.png
+│   │── button_arrow7.png
+│   │── button_arrow8.png
+│   │── button_arrow9.png
+│   └── option_arrow.png
+│── anim-shadow-rmv.html
+│── anim-tool.html
+│── audio.py
+│── boss.py
+│── commands.py
+│── console.py
+│── cursor_tester.py
+│── cursor.png
+│── enemy.py
+│── image_mirror_tool.html
+│── main.py
+│── maze_viewer.html
+│── maze.py
+│── mckPy.py
+│── player.py
+│── rendering.py
+│── saved_maze.json
+│── settings_io.py
+│── settings.json
+│── tile_gen.py
+│── Trajan-bold.otf
+│── Trajan-regular.ttf
+└── ui.py

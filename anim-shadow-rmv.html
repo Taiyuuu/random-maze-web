@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Batch Background Color & Shadow Remover</title>
+    <!-- Include JSZip for single-file archive export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e2f;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 { margin-bottom: 5px; }
+        p { color: #aaa; margin-top: 0; }
+        .controls {
+            background: #2a2a40;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .workspace {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            align-items: flex-start;
+        }
+        .sidebar {
+            flex: 1;
+            background: #2a2a40;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 650px;
+            overflow-y: auto;
+        }
+        .preview-area {
+            flex: 2;
+            background: #2a2a40;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .frame-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .frame-card {
+            background: #3b3b58;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            padding: 5px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+        }
+        .frame-card.selected { border-color: #4CAF50; }
+        .frame-card canvas {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            background: repeating-conic-gradient(#333 0% 25%, #222 0% 50%);
+            background-size: 10px 10px;
+            border-radius: 4px;
+        }
+        .canvas-container {
+            width: 300px;
+            height: 300px;
+            background: repeating-conic-gradient(#333 0% 25%, #222 0% 50%);
+            background-size: 16px 16px;
+            border: 2px dashed #555;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .canvas-container canvas {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: crosshair;
+        }
+        button, input, label {
+            font-size: 14px;
+        }
+        button {
+            padding: 8px 14px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background: #45a049; }
+        input[type="color"] { border: none; width: 40px; height: 32px; cursor: pointer; background: transparent; }
+        input[type="range"] { cursor: pointer; }
+        .setting-row { display: flex; align-items: center; gap: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Batch Color & Shadow Remover</h1>
+    <p>Upload frames, pick or click the color/shadow to remove, adjust the threshold percentage, and export as ZIP.</p>
+
+    <div class="controls">
+        <input type="file" id="upload" multiple accept="image/*">
+        
+        <div class="setting-row">
+            <label>Color to Remove:</label>
+            <input type="color" id="targetColor" value="#ffffff">
+        </div>
+
+        <div class="setting-row">
+            <label>Threshold (<span id="thresholdVal">15</span>%):</label>
+            <input type="range" id="thresholdRange" min="0" max="100" value="15">
+        </div>
+
+        <button id="exportBtn">Export Processed ZIP</button>
+    </div>
+
+    <div class="workspace">
+        <div class="sidebar">
+            <h3>Frames (<span id="frameCount">0</span>)</h3>
+            <div id="frameGrid" class="frame-grid"></div>
+        </div>
+
+        <div class="preview-area">
+            <h3 id="previewTitle">Preview (Click image to pick color)</h3>
+            <div class="canvas-container" id="canvasContainer">
+                <canvas id="previewCanvas"></canvas>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button id="prevBtn">← Prev Frame</button>
+                <button id="nextBtn">Next Frame →</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    let rawImages = []; // Array of Image objects
+    let currentIndex = 0;
+
+    const uploadInput = document.getElementById('upload');
+    const frameGrid = document.getElementById('frameGrid');
+    const previewCanvas = document.getElementById('previewCanvas');
+    const ctx = previewCanvas.getContext('2d', { willReadFrequently: true });
+    const targetColorInput = document.getElementById('targetColor');
+    const thresholdRange = document.getElementById('thresholdRange');
+    const thresholdVal = document.getElementById('thresholdVal');
+    const frameCountSpan = document.getElementById('frameCount');
+    const previewTitle = document.getElementById('previewTitle');
+
+    uploadInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        let loadedCount = 0;
+        files.forEach((file) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    rawImages.push(img);
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        updateUI();
+                    }
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+    thresholdRange.addEventListener('input', () => {
+        thresholdVal.textContent = thresholdRange.value;
+        renderPreview();
+    });
+
+    targetColorInput.addEventListener('input', renderPreview);
+
+    function hexToRgb(hex) {
+        const bigint = parseInt(hex.slice(1), 16);
+        return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+    }
+
+    function processImageToCanvas(img, canvas, targetRgb, thresholdPct) {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const tCtx = canvas.getContext('2d', { willReadFrequently: true });
+        tCtx.clearRect(0, 0, canvas.width, canvas.height);
+        tCtx.drawImage(img, 0, 0);
+
+        const imgData = tCtx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imgData.data;
+        const maxDist = Math.sqrt(255*255 * 3); // Max Euclidean distance in RGB cube
+        const threshold = (thresholdPct / 100) * maxDist;
+
+        const [tr, tg, tb] = targetRgb;
+
+        for (let i = 0; i < data.length; i += 4) {
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
+            const a = data[i + 3];
+
+            if (a === 0) continue;
+
+            // Calculate Euclidean distance from target color
+            const dist = Math.sqrt((r - tr)**2 + (g - tg)**2 + (b - tb)**2);
+
+            if (dist <= threshold) {
+                // Fully remove target color
+                data[i + 3] = 0; 
+            } else if (dist <= threshold * 1.5) {
+                // Smooth falloff / anti-aliasing gradient for shadows/edges
+                const alphaFactor = (dist - threshold) / (threshold * 0.5);
+                data[i + 3] = Math.floor(a * alphaFactor);
+            }
+        }
+
+        tCtx.putImageData(imgData, 0, 0);
+    }
+
+    function renderPreview() {
+        if (rawImages.length === 0) return;
+        previewTitle.textContent = `Preview Frame ${currentIndex + 1} of ${rawImages.length}`;
+        const rgb = hexToRgb(targetColorInput.value);
+        const thresh = parseFloat(thresholdRange.value);
+        processImageToCanvas(rawImages[currentIndex], previewCanvas, rgb, thresh);
+    }
+
+    function renderGrid() {
+        frameGrid.innerHTML = '';
+        frameCountSpan.textContent = rawImages.length;
+        const rgb = hexToRgb(targetColorInput.value);
+        const thresh = parseFloat(thresholdRange.value);
+
+        rawImages.forEach((img, idx) => {
+            const card = document.createElement('div');
+            card.className = `frame-card ${idx === currentIndex ? 'selected' : ''}`;
+            card.innerHTML = `<span>#${idx + 1}</span><br>`;
+            
+            const thumbCanvas = document.createElement('canvas');
+            processImageToCanvas(img, thumbCanvas, rgb, thresh);
+            
+            card.appendChild(thumbCanvas);
+            card.addEventListener('click', () => {
+                currentIndex = idx;
+                renderGrid();
+                renderPreview();
+            });
+
+            frameGrid.appendChild(card);
+        });
+    }
+
+    function updateUI() {
+        renderGrid();
+        renderPreview();
+    }
+
+    // Eyedropper: Click on the preview canvas to pick a color
+    previewCanvas.addEventListener('click', (e) => {
+        if (rawImages.length === 0) return;
+        const rect = previewCanvas.getBoundingClientRect();
+        const scaleX = previewCanvas.width / rect.width;
+        const scaleY = previewCanvas.height / rect.height;
+        const x = Math.floor((e.clientX - rect.left) * scaleX);
+        const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = previewCanvas.width;
+        tempCanvas.height = previewCanvas.height;
+        const tCtx = tempCanvas.getContext('2d');
+        tCtx.drawImage(rawImages[currentIndex], 0, 0);
+        const pixel = tCtx.getImageData(x, y, 1, 1).data;
+
+        if (pixel[3] > 0) {
+            const hex = "#" + ((1 << 24) + (pixel[0] << 16) + (pixel[1] << 8) + pixel[2]).toString(16).slice(1);
+            targetColorInput.value = hex;
+            renderGrid();
+            renderPreview();
+        }
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        if (rawImages.length === 0) return;
+        currentIndex = (currentIndex - 1 + rawImages.length) % rawImages.length;
+        renderGrid();
+        renderPreview();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        if (rawImages.length === 0) return;
+        currentIndex = (currentIndex + 1 + rawImages.length) % rawImages.length;
+        renderGrid();
+        renderPreview();
+    });
+
+    // Batch Export as ZIP
+    document.getElementById('exportBtn').addEventListener('click', async () => {
+        if (rawImages.length === 0) return;
+        const rgb = hexToRgb(targetColorInput.value);
+        const thresh = parseFloat(thresholdRange.value);
+        const zip = new JSZip();
+
+        rawImages.forEach((img, idx) => {
+            const exportCanvas = document.createElement('canvas');
+            processImageToCanvas(img, exportCanvas, rgb, thresh);
+
+            const dataUrl = exportCanvas.toDataURL('image/png');
+            const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
+            const filename = `frame_${String(idx + 1).padStart(2, '0')}.png`;
+            zip.file(filename, base64Data, { base64: true });
+        });
+
+        const content = await zip.generateAsync({ type: "blob" });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = "transparent_animation_frames.zip";
+        link.click();
+    });
+</script>
+
+</body>
+</html>
